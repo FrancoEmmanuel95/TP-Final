@@ -322,13 +322,13 @@ stCliente buscarporID(char archivo[],int id)
 void mostrarMenu()
 {
     printf("1)Carga cliente\n");
-    printf("2)opcion 2\n");
-    printf("3)opcion 3\n");
+    printf("2)listado de clientes\n");
+    printf("3)numeros de registro\n");
     printf("4)opcion 4\n");
-    printf("5)opcion 5\n");
-    printf("6)opcion 6\n");
-    printf("7)opcion 7\n");
-    printf("8)opcion 8\n");
+    printf("5)borrar cliente\n");
+    printf("6)buscar cliente por id6\n");
+    printf("7)buscar por DNI\n");
+    printf("8)modificar por id\n");
     printf("9)opcion 9\n");
     printf("10)opcion 10\n");
     printf("\n");
@@ -568,4 +568,3 @@ stCliente modificarAltaBaja(stCliente cliente)
 
     return cliente;
 }
-
