@@ -1,0 +1,132 @@
+# depslib dependency file v1.0
+1653951038 source:c:\users\franc\documents\codeblock\tp final lab1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"header-tpfinal.h"
+
+1653953987 c:\users\franc\documents\codeblock\tp final lab1\header-tpfinal.h
+
+1653953825 source:c:\users\franc\documents\codeblock\tp final lab1\struct-tpfinal.c
+	"header-tpfinal.h"
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1654043180 source:c:\users\maxia\desktop\codeblock\tp final lab1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"header-tpfinal.h"
+
+1654040706 c:\users\maxia\desktop\codeblock\tp final lab1\header-tpfinal.h
+
+1654045463 source:c:\users\maxia\desktop\codeblock\tp final lab1\struct-tpfinal.c
+	"header-tpfinal.h"
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1654302427 source:c:\users\franc\desktop\tp final lab1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	"header_tpfinal.h"
+	"gotoxy.h"
+
+1654081379 c:\users\franc\desktop\tp final lab1\header-tpfinal.h
+
+1654081373 source:c:\users\franc\desktop\tp final lab1\struct-tpfinal.c
+	"header-tpfinal.h"
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1654095462 source:c:\users\usuario\desktop\tp final lab1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	"header_tpfinal.h"
+
+1654095397 c:\users\usuario\desktop\tp final lab1\header-tpfinal.h
+
+1654095392 source:c:\users\usuario\desktop\tp final lab1\struct-tpfinal.c
+	"header-tpfinal.h"
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<conio.h>
+
+1654185428 c:\users\usuario\desktop\tp final lab1\header_tpfinal.h
+
+1654182597 source:c:\users\usuario\desktop\tp final lab1\struct_tpfinal.c
+	"header_tpfinal.h"
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<conio.h>
+
+1654377598 c:\users\franc\desktop\tp final lab1\header_tpfinal.h
+
+1654378891 source:c:\users\franc\desktop\tp final lab1\struct_tpfinal.c
+	"header_tpfinal.h"
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<conio.h>
+	"gotoxy.h"
+
+1491400450 source:c:\users\franc\desktop\tp final lab1\gotoxy.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+
+1491399896 c:\users\franc\desktop\tp final lab1\gotoxy.h
+
+1491400450 source:c:\users\daphne\desktop\tp final lab1 frannnnnn\gotoxy.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+
+1654477841 source:c:\users\daphne\desktop\tp final lab1 frannnnnn\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	"header_tpfinal.h"
+	"gotoxy.h"
+	"consumos_header.h"
+
+1654478400 c:\users\daphne\desktop\tp final lab1 frannnnnn\header_tpfinal.h
+	"consumos_header.h"
+
+1491399896 c:\users\daphne\desktop\tp final lab1 frannnnnn\gotoxy.h
+
+1654478407 source:c:\users\daphne\desktop\tp final lab1 frannnnnn\struct_tpfinal.c
+	"header_tpfinal.h"
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<conio.h>
+	"consumos_header.h"
+
+1654478398 c:\users\daphne\desktop\tp final lab1 frannnnnn\consumos_header.h
+	"header_tpfinal.h"
+
+1654478697 source:c:\users\daphne\desktop\tp final lab1 frannnnnn\consumos.c
+	"consumos_header.h"
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<conio.h>
+
