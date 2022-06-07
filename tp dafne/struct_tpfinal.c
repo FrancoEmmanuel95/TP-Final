@@ -266,7 +266,7 @@ void muestraArchivoClientes(char nombreArchivo[])
 stCliente buscarPorDni(char dni[],char archivo[])
 {
     system("cls");
-  //  int reg=contarRegistros(clientes);
+    //  int reg=contarRegistros(clientes);
     FILE* archi = fopen(archivo, "rb");
     stCliente a;
     int opcion = 0;
@@ -295,7 +295,7 @@ stCliente buscarPorDni(char dni[],char archivo[])
 
             if (opcion ==1)
             {
-               seleccionModificar(a.id);
+                seleccionModificar(a.id);
             }
         }
 
@@ -307,7 +307,7 @@ stCliente buscarPorDni(char dni[],char archivo[])
 stCliente buscarPorNroCliente(int nrocliente,char archivo[])
 {
     system("cls");
-   // int reg=contarRegistros(clientes);
+    // int reg=contarRegistros(clientes);
     FILE* archi = fopen(archivo, "rb");
     stCliente a;
     int opcion = 0;
@@ -325,31 +325,32 @@ stCliente buscarPorNroCliente(int nrocliente,char archivo[])
         fclose(archi);
         if (flag==1)
         {
-             do
-             {
-            printf("\n1: modificar cliente.");
-            printf("\n2: consultar consumos de este cliente.");
-            printf("\n3: volver.");
-            scanf("\n%d",&opcion);
+            do
+            {
+                printf("\n1: modificar cliente.");
+                printf("\n2: consultar consumos de este cliente.");
+                printf("\n3: volver.");
+                scanf("\n%d",&opcion);
 
 
-            switch(opcion)
-            {
-            case 1:
-            {
+                switch(opcion)
+                {
+                case 1:
+                {
                     seleccionModificar(a.id);
-            }
-            break;
-            case 2:
+                }
                 break;
-            case 3:
-                break;
-             default:{
+                case 2:
+                    break;
+                case 3:
+                    break;
+                default:
+                {
                     printf("el numero ingresado no es valido");
-            }
+                }
                 break;
+                }
             }
-             }
             while (opcion!=3);
         }
 
@@ -398,7 +399,7 @@ void seleccion()
 {
     int registros=0;
     char valor[9];
-   // char st[3]= "0";
+    // char st[3]= "0";
     int opcion;
     do
     {
@@ -419,38 +420,8 @@ void seleccion()
             break;
         case 3:
         {
-
-                system("cls");
-                printf("\n1. Busqueda por numero de cliente.");
-                printf("\n2. Busqueda por numero de DNI");
-                printf("\n3. Volver");
-                scanf("%d",&registros);
-
-                switch(registros){
-                case 1:{
-                        printf("\nIngrese el numero de cliente");
-                        scanf("%d",&registros);
-                        buscarPorNroCliente(registros,clientes);
-                        }
-                    break;
-                case 2:{
-                                 printf("\ningrese el dni a buscar, 0 para salir.\n");
-                 fflush(stdin);
-                 gets(valor);
-                     buscarPorDni(valor,clientes);
-                }
-                    break;
-                case 3:{}
-                    break;
-                 default:
-                    break;
-
-
-
-                     }
-
+            menuModificar();
         }
-
         break;
         case 4:
         {
@@ -469,27 +440,62 @@ void seleccion()
         case 7:
         {
 
-        break;
-        case 8:
-            printf("ingrese el id");
-            scanf("%d",&registros);
-            seleccionModificar(registros);
+            break;
+            case 8:
+                printf("ingrese el id");
+                scanf("%d",&registros);
+                seleccionModificar(registros);
 
-            break;
-        case 9:
-            printf("Usted selecciono %i \n",opcion);
-            break;
-        case 10:
-            printf("Usted selecciono %i \n",opcion);
-            break;
-        default:
-            printf("Opcion incorrecta \n");
-            break;
+                break;
+            case 9:
+                printf("Usted selecciono %i \n",opcion);
+                break;
+            case 10:
+                printf("Usted selecciono %i \n",opcion);
+                break;
+            default:
+                printf("Opcion incorrecta \n");
+                break;
+            }
         }
     }
-   } while(opcion != 0);
+    while(opcion != 0);
 }
 
+void menuModificar()
+{   int opcion;
+    char valor[9];
+
+                system("cls");
+            printf("\n1. Busqueda por numero de cliente.");
+            printf("\n2. Busqueda por numero de DNI");
+            printf("\n3. Volver");
+            scanf("%d",&opcion);
+
+            switch(opcion)
+            {
+            case 1:
+            {
+                printf("\nIngrese el numero de cliente");
+                scanf("%d",&opcion);
+                buscarPorNroCliente(opcion,clientes);
+            }
+            break;
+            case 2:
+            {
+                printf("\ningrese el dni a buscar, 0 para salir.\n");
+                fflush(stdin);
+                gets(valor);
+                buscarPorDni(valor,clientes);
+            }
+            break;
+            case 3:
+            {}
+            break;
+            default:
+                break;
+            }
+}
 void seleccionModificar(int id)
 {
     int opcion=0;
@@ -505,8 +511,10 @@ void seleccionModificar(int id)
     printf("\n0. Volver.\n");
     scanf("%d",&opcion);
 
-      if(opcion!=0){
-      modificarCliente(clientes,id,opcion);}
+    if(opcion!=0)
+    {
+        modificarCliente(clientes,id,opcion);
+    }
 
 }
 void modificarCliente(char archivo[],int id,int flag)
@@ -521,7 +529,7 @@ void modificarCliente(char archivo[],int id,int flag)
 
         fseek(archi,sizeof(stCliente)*(id-1),0);
         fread(&cliente,sizeof(stCliente),1,archi);
-      //  consultaCliente(cliente);
+        //  consultaCliente(cliente);
 
         switch(flag)
         {
@@ -564,7 +572,7 @@ void modificarCliente(char archivo[],int id,int flag)
         }
 
         fseek(archi,sizeof(stCliente)*(id-1),0);
-       consultaCliente(cliente);
+        consultaCliente(cliente);
         system("pause");
         fwrite(&cliente,sizeof(stCliente),1,archi);
         fclose(archi);

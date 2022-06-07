@@ -25,6 +25,9 @@ typedef struct
     int baja; /// 0 si está activo - 1 si está eliminado
 }stConsumos;
 
+
+
+void menuModificar();
 stCliente buscarporID(char archivo[],int id);
 stCliente buscarPorDni(char dni[],char archivo[]);
 stCliente buscarPorNroCliente(int nrocliente,char archivo[]);
@@ -41,16 +44,12 @@ void consultaCliente(stCliente cliente);
 stCliente altaUnCliente(int id);
 int validacionNroCliente(stCliente b, char archivo[]);
 int validacionDni(char dni[], char archivo[]);
-char nomRand (char n[]);
-char apellRand(char a[]);
 void mostrarMenu();
 void seleccion();
 void muestraArchivoClientes(char nombreArchivo[]);
 void cargaClienteArchivo(char nombreArchivo[]);
 int contarRegistros(char archivo[]);
 void borclien();
-
-
 
 //stConsumos altaConsumos(char archivo [],char archivoCliente, stConsumos consumo, stCliente clientes);
 int validacionDiaMesAnio (stConsumos consumo);
