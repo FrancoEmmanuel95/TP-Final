@@ -382,13 +382,13 @@ stCliente buscarPorNroCliente(int nrocliente,char archivo[])
 }*/
 void mostrarMenu()
 {
-    printf("1)Carga cliente\n");
-    printf("2)opcion 2\n");
-    printf("3)opcion 3\n");
+    printf("1)Carga nuevo cliente.\n");
+    printf("2)Listado clientes.\n");
+    printf("3)Consulta clientes.\n");
     printf("4)opcion 4\n");
     printf("5)opcion 5\n");
     printf("6)opcion 6\n");
-    printf("7)Busqueda cliente.\n");
+    printf("7)opcion 7\n");
     printf("8)opcion 8\n");
     printf("9)opcion 9\n");
     printf("10)opcion 10\n");
@@ -419,29 +419,7 @@ void seleccion()
             break;
         case 3:
         {
-            registros=contarRegistros(clientes);
-            printf("\n%d\n",registros);
-            system("pause");
-        }
-        break;
-        case 4:
-        {
 
-            // modificarCliente(clientes,48);
-        }
-        break;
-        case 5:
-            borclien();
-            break;
-        case 6:
-            printf("\ningrese el id: ");
-            scanf("%d",&registros);
-            // buscarporID(clientes,registros);
-            break;
-        case 7:
-        {
-          //  do
-            // {
                 system("cls");
                 printf("\n1. Busqueda por numero de cliente.");
                 printf("\n2. Busqueda por numero de DNI");
@@ -459,7 +437,6 @@ void seleccion()
                                  printf("\ningrese el dni a buscar, 0 para salir.\n");
                  fflush(stdin);
                  gets(valor);
-                // if (strcmpi(valor,st)!=0)
                      buscarPorDni(valor,clientes);
                 }
                     break;
@@ -472,11 +449,26 @@ void seleccion()
 
                      }
 
-
-         //    }*/
-         //   while(strcmpi(valor,st)!=0);
-
         }
+
+        break;
+        case 4:
+        {
+
+            // modificarCliente(clientes,48);
+        }
+        break;
+        case 5:
+            borclien();
+            break;
+        case 6:
+            printf("\ningrese el id: ");
+            scanf("%d",&registros);
+            // buscarporID(clientes,registros);
+            break;
+        case 7:
+        {
+
         break;
         case 8:
             printf("ingrese el id");
@@ -495,7 +487,7 @@ void seleccion()
             break;
         }
     }
-    while(opcion != 0);
+   } while(opcion != 0);
 }
 
 void seleccionModificar(int id)
