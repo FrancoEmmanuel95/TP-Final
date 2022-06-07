@@ -266,7 +266,7 @@ void muestraArchivoClientes(char nombreArchivo[])
 stCliente buscarPorDni(char dni[],char archivo[])
 {
     system("cls");
-    int reg=contarRegistros(clientes);
+  //  int reg=contarRegistros(clientes);
     FILE* archi = fopen(archivo, "rb");
     stCliente a;
     int opcion = 0;
@@ -289,16 +289,13 @@ stCliente buscarPorDni(char dni[],char archivo[])
             printf("\n1: modificar cliente.");
             printf("\n2: consultar consumos de este cliente.");
             printf("\n3: volver.");
-            scanf("%d",&opcion);
+            scanf("\n%d",&opcion);
             // }
             // while (opcion!=3);
 
             if (opcion ==1)
             {
-                    if(a.id!=reg)
-                    seleccionModificar(a.id-1);}
-                else{
-                    seleccionModificar(a.id);
+               seleccionModificar(a.id);
             }
         }
 
@@ -310,7 +307,7 @@ stCliente buscarPorDni(char dni[],char archivo[])
 stCliente buscarPorNroCliente(int nrocliente,char archivo[])
 {
     system("cls");
-    int reg=contarRegistros(clientes);
+   // int reg=contarRegistros(clientes);
     FILE* archi = fopen(archivo, "rb");
     stCliente a;
     int opcion = 0;
@@ -333,16 +330,13 @@ stCliente buscarPorNroCliente(int nrocliente,char archivo[])
             printf("\n1: modificar cliente.");
             printf("\n2: consultar consumos de este cliente.");
             printf("\n3: volver.");
-            scanf("%d",&opcion);
+            scanf("\n%d",&opcion);
 
 
             switch(opcion)
             {
             case 1:
             {
-                if(a.id!=reg)
-                    seleccionModificar(a.id-1);
-                else
                     seleccionModificar(a.id);
             }
             break;
