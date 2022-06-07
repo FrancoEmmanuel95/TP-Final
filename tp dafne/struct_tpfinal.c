@@ -12,7 +12,6 @@
 #include "consumos_header.h"
 stCliente altaUnCliente(int id)
 {
-    int ncl=contarRegistros(clientes);
     int flag=0;
     stCliente cliente;
 
@@ -20,41 +19,45 @@ stCliente altaUnCliente(int id)
 
     system("cls");
 
-    printf("\nEl ultimo nro cliente es: %d\n",ncl);
-
     printf("\nnumero de cliente: ");
     scanf("%d",&cliente.nroCliente);
     flag=validacionNroCliente(cliente,clientes);
+    if (flag==0)
+    {
 
-    fflush(stdin);
-    printf("Nombre: ");
-    gets(cliente.nombre);
+        fflush(stdin);
+        printf("Nombre: ");
+        gets(cliente.nombre);
 
-    fflush(stdin);
-    printf("Apellido: ");
-    gets(cliente.apellido);
+        fflush(stdin);
+        printf("Apellido: ");
+        gets(cliente.apellido);
 
-    fflush(stdin);
-    printf("DNI: ");
-    gets(cliente.dni);
-    if(flag==0)
-        flag=validacionDni(cliente.dni,clientes);
+        fflush(stdin);
+        printf("DNI: ");
+        gets(cliente.dni);
+        if(flag==0)
+        {
+            flag=validacionDni(cliente.dni,clientes);
+        }
 
+        if(flag==0)
+        {
+            fflush(stdin);
+            printf("Email: ");
+            gets(cliente.email);
 
-    fflush(stdin);
-    printf("Email: ");
-    gets(cliente.email);
+            fflush(stdin);
+            printf("Domicilio: ");
+            gets(cliente.domicilio);
 
-    fflush(stdin);
-    printf("Domicilio: ");
-    gets(cliente.domicilio);
+            fflush(stdin);
+            printf("Movil: ");
+            gets(cliente.movil);
 
-    fflush(stdin);
-    printf("Movil: ");
-    gets(cliente.movil);
-
-    cliente.eliminado = 0;
-
+            cliente.eliminado = 0;
+        }
+    }
     if (flag ==1)
     {
         printf("el cliente ya se encuentra en los registros.");
@@ -120,6 +123,7 @@ void borclien()
 
 void cargaClienteArchivo(char nombreArchivo[])
 {
+    int flag =0;
     int static valido=0;
     char salida='s';
     valido = contarRegistros(clientes);
@@ -132,13 +136,21 @@ void cargaClienteArchivo(char nombreArchivo[])
 
         do
         {
-            valido++;
+            if(flag==0)
+            {
+                valido++;
+            }
+            flag =0;
             cliente=altaUnCliente(valido);
 
             if(cliente.nroCliente!=0)
             {
                 fwrite(&cliente,sizeof(stCliente),1,archi);
                 printf("\nEl alta ha sido exitosa.");
+            }
+            else
+            {
+                flag=1;
             }
             printf("\npresione una tecla para cargar un nuevo cliente, ESC para volver al menu\n");
             fflush(stdin);
@@ -290,12 +302,14 @@ void muestraArchivoClientes(char nombreArchivo[])
     return cliente;
 }*/
 void mostrarMenu()
-{  int i;
+{
+    int i;
     printf("%c", 201);
     for (i=0; i<29; i++)
     {
         printf("%c", 205);
-    } printf("%c", 187);
+    }
+    printf("%c", 187);
     printf("\n%c1)Carga nuevo cliente.\n",186);
     gotoxy(30,1);
     printf("%c",186);
@@ -325,9 +339,6 @@ void mostrarMenu()
 
     printf("%cESC Salir.\n",186);
 
-
-
- //   printf("%c %s %c \n", 186, cabecera,186);
     printf("%c", 200);
     for (i=0; i<29; i++)
     {
@@ -369,7 +380,7 @@ void seleccion()
         }
         break;
         case 53:
-            //borclien();
+            // borclien();
             break;
         case 54:
             break;
@@ -452,16 +463,11 @@ void modificarCliente(char archivo[],int id,int flag)
 {
     FILE* archi = fopen(archivo,"r+b");
     stCliente cliente;
-    //printf("\n\n %d\n\n",id);
-    //  system("pause");
     if (archi)
     {
 
-
         fseek(archi,sizeof(stCliente)*(id-1),0);
         fread(&cliente,sizeof(stCliente),1,archi);
-        //  consultaCliente(cliente);
-
 
         switch(flag)
         {
@@ -478,6 +484,7 @@ void modificarCliente(char archivo[],int id,int flag)
         case 3:
         {
             cliente=modificarDNI(cliente);
+
         }
         break;
         case 4:
@@ -502,11 +509,20 @@ void modificarCliente(char archivo[],int id,int flag)
         break;
 
         }
+        if(cliente.nroCliente !=0)
+        {
 
-        fseek(archi,sizeof(stCliente)*(id-1),0);
-        consultaCliente(cliente);
-        system("pause");
-        fwrite(&cliente,sizeof(stCliente),1,archi);
+            fseek(archi,sizeof(stCliente)*(id-1),0);
+            consultaCliente(cliente);
+            system("pause");
+            fwrite(&cliente,sizeof(stCliente),1,archi);
+        }
+        else
+        {
+            printf("\nEl DNI ingresado ya existe.\n");
+            system("pause");
+        }
+
         fclose(archi);
 
     }
@@ -538,9 +554,16 @@ stCliente modificarApellido(stCliente cliente)
 }
 stCliente modificarDNI(stCliente cliente)
 {
+    int flag=0;
     printf("\ningrese el nuevo DNI: ");
     fflush(stdin);
     gets(cliente.dni);
+    flag=validacionDni(cliente.dni,clientes);
+
+    if(flag==1)
+    {
+        cliente.nroCliente=0;
+    }
 
     return cliente;
 }
@@ -603,6 +626,12 @@ stCliente buscarPorDni(char dni[],char archivo[])
             }
         }
         fclose(archi);
+        if (flag==0)
+        {
+            printf("\nEl DNI ingresado no existe en nuestros archivos.\n\n");
+            system("pause");
+        }
+
         if (flag==1)
         {
             printf("\n1: modificar cliente.");
@@ -641,36 +670,42 @@ stCliente buscarPorNroCliente(int nrocliente,char archivo[])
             }
         }
         fclose(archi);
-        if (flag==1)
+        if (flag==0)
         {
+            printf("\nEl Numero de cliente ingresado no existe en nuestros archivos.\n\n");
+            system("pause");
 
-            printf("\n1: modificar cliente.");
-            printf("\n2: consultar consumos de este cliente.");
-            printf("\n3: volver.\n\nOpcion: ");
-            scanf("\n%d",&opcion);
-
-
-            switch(opcion)
+            if (flag==1)
             {
-            case 1:
-            {
-                seleccionModificar(id);
-            }
-            break;
-            case 2:
+
+                printf("\n1: modificar cliente.");
+                printf("\n2: consultar consumos de este cliente.");
+                printf("\n3: volver.\n\nOpcion: ");
+                scanf("\n%d",&opcion);
+
+
+                switch(opcion)
+                {
+                case 1:
+                {
+                    seleccionModificar(id);
+                }
                 break;
-            case 3:
+                case 2:
+                    break;
+                case 3:
+                    break;
+                default:
+                {
+                    printf("el numero ingresado no es valido");
+                }
                 break;
-            default:
-            {
-                printf("el numero ingresado no es valido");
-            }
-            break;
+                }
+
             }
 
         }
 
-    }
 
-    return a;
-}
+    }return a;
+ }
