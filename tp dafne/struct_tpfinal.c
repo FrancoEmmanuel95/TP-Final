@@ -6,6 +6,8 @@
 #define clientes "clientes.dat"
 #include <conio.h>
 #define ESC 27
+#include "gotoxy.h"
+#include <windows.h>
 
 #include "consumos_header.h"
 stCliente altaUnCliente(int id)
@@ -263,103 +265,7 @@ void muestraArchivoClientes(char nombreArchivo[])
 
 }
 
-stCliente buscarPorDni(char dni[],char archivo[])
-{
-    system("cls");
-    //  int reg=contarRegistros(clientes);
-    FILE* archi = fopen(archivo, "rb");
-    stCliente a;
-    int opcion = 0;
-    int id;
-    int flag=0;
-    if(archi)
-    {
-        while(fread(&a,sizeof(stCliente),1,archi)>0 && flag==0)
-        {
-            if(strcmpi(dni,a.dni)==0)
-            {
-                flag=1;
-                consultaCliente(a);
-                id = a.id;
-            }
-        }
-        fclose(archi);
-        if (flag==1)
-        {
-            //  do
-            // {
-            printf("\n1: modificar cliente.");
-            printf("\n2: consultar consumos de este cliente.");
-            printf("\n3: volver.");
-            scanf("\n%d",&opcion);
-            // }
-            // while (opcion!=3);
 
-            if (opcion ==1)
-            {
-                seleccionModificar(id);
-            }
-        }
-
-    }
-
-    return a;
-}
-
-stCliente buscarPorNroCliente(int nrocliente,char archivo[])
-{
-    system("cls");
-    // int reg=contarRegistros(clientes);
-    FILE* archi = fopen(archivo, "rb");
-    stCliente a;
-    int opcion = 0;
-    int id;
-    int flag=0;
-    if(archi)
-    {
-        while(flag==0 && fread(&a,sizeof(stCliente),1,archi)>0)
-        {
-            if(nrocliente==a.nroCliente)
-            {
-                flag=1;
-                consultaCliente(a);
-                id=a.id;
-            }
-        }
-        fclose(archi);
-        if (flag==1)
-        {
-
-                printf("\n1: modificar cliente.");
-                printf("\n2: consultar consumos de este cliente.");
-                printf("\n3: volver.");
-                scanf("\n%d",&opcion);
-
-
-                switch(opcion)
-                {
-                case 1:
-                {
-                    seleccionModificar(id);
-                }
-                break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                default:
-                {
-                    printf("el numero ingresado no es valido");
-                }
-                break;
-                }
-
-        }
-
-    }
-
-    return a;
-}
 
 
 
@@ -384,114 +290,142 @@ stCliente buscarPorNroCliente(int nrocliente,char archivo[])
     return cliente;
 }*/
 void mostrarMenu()
-{
-    printf("1)Carga nuevo cliente.\n");
-    printf("2)Listado clientes.\n");
-    printf("3)Consulta clientes.\n");
-    printf("4)opcion 4\n");
-    printf("5)opcion 5\n");
-    printf("6)opcion 6\n");
-    printf("7)opcion 7\n");
-    printf("8)opcion 8\n");
-    printf("9)opcion 9\n");
-    printf("10)opcion 10\n");
-    printf("\n");
+{  int i;
+    printf("%c", 201);
+    for (i=0; i<29; i++)
+    {
+        printf("%c", 205);
+    } printf("%c", 187);
+    printf("\n%c1)Carga nuevo cliente.\n",186);
+    gotoxy(30,1);
+    printf("%c",186);
+    gotoxy(0,2);
+    printf("%c2)Listado clientes.\n",186);
+
+    gotoxy(30,2);
+    printf("%c",186);
+    gotoxy(0,3);
+    printf("%c3)Consulta clientes.\n",186);
+
+    gotoxy(30,3);
+    printf("%c",186);
+    gotoxy(0,4);
+    printf("%c4)Modificar cliente.\n",186);
+    gotoxy(30,4);
+    printf("%c",186);
+    gotoxy(0,5);
+    printf("%c",186);
+    gotoxy(0,6);
+    printf("%c",186);
+    gotoxy(30,5);
+    printf("%c",186);
+    gotoxy(30,6);
+    printf("%c",186);
+    gotoxy(0,6);
+
+    printf("%cESC Salir.\n",186);
+
+
+
+ //   printf("%c %s %c \n", 186, cabecera,186);
+    printf("%c", 200);
+    for (i=0; i<29; i++)
+    {
+        printf( "%c", 205);
+    }
+    printf("%c",188);
+
+
 }
 void seleccion()
 {
-    int registros=0;
-    int opcion;
+    char opcion;
     do
     {
         system("cls");
         mostrarMenu();
-        scanf("%d",&opcion);
+        fflush(stdin);
+        opcion=getch();
         switch(opcion)
         {
-        case 0:
+        case 27:
             break;
-        case 1:
+        case 49:
         {
             cargaClienteArchivo(clientes);
         }
         break;
-        case 2:
+        case 50:
             muestraArchivoClientes(clientes);
             break;
-        case 3:
+        case 51:
         {
             menuModificar();
         }
         break;
-        case 4:
+        case 52:
         {
-
-            // modificarCliente(clientes,48);
+            menuModificar();
         }
         break;
-        case 5:
-            borclien();
+        case 53:
+            //borclien();
             break;
-        case 6:
+        case 54:
             break;
-        case 7:
+        case 55:
         {
 
             break;
-            case 8:
-                printf("ingrese el id");
-                scanf("%d",&registros);
-                seleccionModificar(registros);
+            case 56:
+                break;
+            case 57:
 
-                break;
-            case 9:
-                printf("Usted selecciono %i \n",opcion);
-                break;
-            case 10:
-                printf("Usted selecciono %i \n",opcion);
                 break;
             default:
                 printf("Opcion incorrecta \n");
                 break;
+
             }
         }
     }
-    while(opcion != 0);
+    while(opcion != ESC);
 }
 
 void menuModificar()
-{   int opcion;
+{
+    int opcion;
     char valor[9];
 
-                system("cls");
-            printf("\n1. Busqueda por numero de cliente.");
-            printf("\n2. Busqueda por numero de DNI");
-            printf("\n3. Volver\n");
-            scanf("%d",&opcion);
+    system("cls");
+    printf("\n1. Busqueda por numero de cliente.");
+    printf("\n2. Busqueda por numero de DNI");
+    printf("\n3: volver.\n\nOpcion: ");
+    scanf("%d",&opcion);
 
-            switch(opcion)
-            {
-            case 1:
-            {
-                printf("\nIngrese el numero de cliente: ");
-                scanf("%d",&opcion);
-                buscarPorNroCliente(opcion,clientes);
-            }
-            break;
-            case 2:
-            {
-                printf("\ningrese el dni a buscar, 0 para salir.\n");
-                fflush(stdin);
-                gets(valor);
-                buscarPorDni(valor,clientes);
-            }
-            break;
-            case 3:
-            {}
-            break;
-            default:
-                break;
-            }
+    switch(opcion)
+    {
+    case 1:
+    {
+        printf("\nIngrese el numero de cliente: ");
+        scanf("%d",&opcion);
+        buscarPorNroCliente(opcion,clientes);
+    }
+    break;
+    case 2:
+    {
+        printf("\ningrese el dni a buscar, 0 para salir.\n");
+        fflush(stdin);
+        gets(valor);
+        buscarPorDni(valor,clientes);
+    }
+    break;
+    case 3:
+    {}
+    break;
+    default:
+        break;
+    }
 }
 void seleccionModificar(int id)
 {
@@ -527,7 +461,7 @@ void modificarCliente(char archivo[],int id,int flag)
         fseek(archi,sizeof(stCliente)*(id-1),0);
         fread(&cliente,sizeof(stCliente),1,archi);
         //  consultaCliente(cliente);
-        system("pause");
+
 
         switch(flag)
         {
@@ -648,4 +582,95 @@ stCliente modificarAltaBaja(stCliente cliente)
         cliente.eliminado=0;
 
     return cliente;
+}
+stCliente buscarPorDni(char dni[],char archivo[])
+{
+    system("cls");
+    FILE* archi = fopen(archivo, "rb");
+    stCliente a;
+    int opcion = 0;
+    int id;
+    int flag=0;
+    if(archi)
+    {
+        while(flag==0 && fread(&a,sizeof(stCliente),1,archi)>0)
+        {
+            if(strcmpi(dni,a.dni)==0)
+            {
+                flag=1;
+                consultaCliente(a);
+                id = a.id;
+            }
+        }
+        fclose(archi);
+        if (flag==1)
+        {
+            printf("\n1: modificar cliente.");
+            printf("\n2: consultar consumos de este cliente.");
+            printf("\n3: volver.\n\nOpcion: ");
+            scanf("\n%d",&opcion);
+
+
+            if (opcion ==1)
+            {
+                seleccionModificar(id);
+            }
+        }
+    }
+    return a;
+}
+
+stCliente buscarPorNroCliente(int nrocliente,char archivo[])
+{
+    system("cls");
+    // int reg=contarRegistros(clientes);
+    FILE* archi = fopen(archivo, "rb");
+    stCliente a;
+    int opcion = 0;
+    int id;
+    int flag=0;
+    if(archi)
+    {
+        while(flag==0 && fread(&a,sizeof(stCliente),1,archi)>0)
+        {
+            if(nrocliente==a.nroCliente)
+            {
+                flag=1;
+                consultaCliente(a);
+                id=a.id;
+            }
+        }
+        fclose(archi);
+        if (flag==1)
+        {
+
+            printf("\n1: modificar cliente.");
+            printf("\n2: consultar consumos de este cliente.");
+            printf("\n3: volver.\n\nOpcion: ");
+            scanf("\n%d",&opcion);
+
+
+            switch(opcion)
+            {
+            case 1:
+            {
+                seleccionModificar(id);
+            }
+            break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+            {
+                printf("el numero ingresado no es valido");
+            }
+            break;
+            }
+
+        }
+
+    }
+
+    return a;
 }
