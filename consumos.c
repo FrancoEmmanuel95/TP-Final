@@ -8,7 +8,7 @@
 #include <conio.h>
 #define ESC 27
 
-stConsumos altaConsumos(char archivo [],char archivoCliente, stConsumos consumo, stCliente clientes)
+stConsumos altaConsumos(char archivo [],char archivoCliente, stConsumos consumos, stCliente clientes)
 {
     ///relaciona el id del cliente en struct cliente con id cliente en struct consumo y le agrega el consumo si flag = 1 en funcion validar fecha
     stConsumos consumo;
@@ -16,32 +16,32 @@ stConsumos altaConsumos(char archivo [],char archivoCliente, stConsumos consumo,
 
     FILE *archi = fopen(nombrearchivo, "ab");
     FILE *archi = fopen(archivoCliente, "rb");
-    int idcl= clientes.id
+    int idcl= clientes.id;
 
-              if (archi)
+    if (archi)
     {
-        consumo.idCliente = idcl;
-        c = validacionDiaMesAnio(stConsumos consumo)
+        consumos.idCliente = idcl;
+        c = validacionDiaMesAnio(stConsumos consumo);
 
 
 
-            fflush(stdin);
+        fflush(stdin);
         printf("\nIngrese anio");
-        scanf("%d", consumo.anio);
+        scanf("%d", &consumos.anio);
 
         fflush(stdin);
         printf("\nIngrese mes");
-        scanf("%d", consumo.mes);
+        scanf("%d", consumos.mes);
 
         fflush(stdin);
         printf("\nIngrese dia");
-        scanf("%d", consumo.dia);
+        scanf("%d", consumos.dia);
 
         if (c == 1)
         {
             fflush(stdin);
             printf("\nIngrese los datos consumidos");
-            scanf("%d", consumo.datosConsumidos);
+            scanf("%d", consumos.datosConsumidos);
             c = validacionConsumo(clientes, stConsumos);
         }
         else
@@ -51,7 +51,7 @@ stConsumos altaConsumos(char archivo [],char archivoCliente, stConsumos consumo,
 
 
 
-        if (cliente.eliminado == 1)
+        if (clientes.eliminado == 1)
         {
             printf("\nEl cliente se encuentra dado de baja");
         }
@@ -59,7 +59,7 @@ stConsumos altaConsumos(char archivo [],char archivoCliente, stConsumos consumo,
     }
     fclose(archi);
     fclose(archivoCliente);
-    return consumo;
+    return consumos;
 }
 int validacionConsumo (char archivo[], stConsumos a)
 {
@@ -88,13 +88,13 @@ int validacionConsumo (char archivo[], stConsumos a)
     }
     return flag;
 }
-int validacionDiaMesAnio (stConsumos consumo)
+int validacionDiaMesAnio (stConsumos consumos)
 {
     ///meses 1 3 5 7 8 10 12 = 31 --- meses 4 6 9 11 = 30 ---- mes 2 = 28 / biciesto 29 .. devuelve un flag = 1 si la fecha es correcta
     int flag = 0;
-    int dia = consumo.dia;
-    int mes = consumo.mes;
-    int anio = consumo.anio;
+    int dia = consumos.dia;
+    int mes = consumos.mes;
+    int anio = consumos.anio;
 
     if(mes >=1 && mes <=12)
     {
@@ -103,7 +103,7 @@ int validacionDiaMesAnio (stConsumos consumo)
         case 1:
         {
 
-            flag = int validardia31(int dia);
+            flag = validardia31(consumo.dia);
         }
         break;
 
@@ -134,70 +134,70 @@ int validacionDiaMesAnio (stConsumos consumo)
 
         case 3:
         {
-            flag = int validardia31(int dia);
+            flag = validardia31(consumo.dia);
 
         }
         break;
 
         case 4:
         {
-            flag =int validardia30(int dia);
+            flag = validardia30(consumo.dia);
 
         }
         break;
 
         case 5:
         {
-            flag =int validardia31(int dia);
+            flag = validardia31(consumo.dia);
 
         }
         break;
 
         case 6:
         {
-            flag =int validardia30(int dia);
+            flag = validardia30(consumo.dia);
 
         }
         break;
 
         case 7:
         {
-            flag =int validardia31(int dia);
+            flag = validardia31(consumo.dia);
 
         }
         break;
 
         case 8:
         {
-            flag =int validardia31(int dia);
+            flag = validardia31(consumo.dia);
 
         }
         break;
 
         case 9:
         {
-            flag =int validardia30(int dia);
+            flag = validardia30(consumo.dia);
 
         }
         break;
 
         case 10:
         {
-            flag =int validardia31(int dia);
+            flag = validardia31(consumo.dia);
 
         }
         break;
 
         case 11:
         {
-            flag =int validardia30(int dia);
+            flag = validardia30(consumo.dia);
 
         }
         break;
 
         case 12:
         {
-            flag =int validardia31(int dia);
+            flag = validardia31(consumo.dia);
 
         }
 
@@ -219,7 +219,7 @@ int validardia31(int dia)
     else
     {
         flag = 0;
-        flag =
+
     }
 
     return flag;
@@ -238,19 +238,19 @@ int validardia30(int dia)
 
     return flag;
 
-void mostrarConsumos(stConsumos consumo, stCliente cliente, char archivoCliente[], char archivo[])
+    void mostrarConsumos(stConsumos consumos, stCliente clientes, char archivoCliente[], char archivo[])
     {
         ///mostrar los datos del cliente y los datos consumidos hasta el momento
-        //stConsumos consumo;
-        // stCliente cliente;
+        stConsumos consumos;
+        stCliente clientes;
 
         FILE *archicons = fopen(archivo, "rb");
         FILE *archiclie = fopen(archivoCliente, "rb");
 
-        //  printf("\nNro Cliente.............", consumo.idCliente);
-        consultaCliente(cliente);
-        // printf("\nDatos Consumidos........", consumo.datosConsumidos);
-        if(cliente.eliminado == 0)
+        printf("\nNro Cliente.............", consumos.idCliente);
+        consultaCliente(clientes);
+        printf("\nDatos Consumidos........", consumos.datosConsumidos);
+        if(clientes.eliminado == 0)
         {
             printf("\nCLIENTE ACTIVO");
         }
@@ -269,44 +269,96 @@ void mostrarConsumos(stConsumos consumo, stCliente cliente, char archivoCliente[
         stConsumos consumos;
         stCliente clientes;
         FILE *archi = fopen(archivoClientes, "r+b");
+        int i = 0;
 
-        int id = clientes.id
-        int datos = consumos.datosConsumidos;
+        srand(time(NULL));
 
-        for (id = 1; id <= 1000; id++)
+        for (i = 1; i <= 1000; i++)
         {
-            datos = rand()%1000;
+            consumos.dia = rand(31 + 1)-1;
+            consumos.mes = rand(12 + 1)-1;
+            consumos.anio = rand(12 + 1)-1;
+            consumos.datosConsumidos = rand()%1000;
+
         }
         fclose(archi);
-        return datos;
+        return consumos;
     }
 
     ///rand para cada uno de los datos , id, dia , mes , etc , todo dentro del for
 
 
-int sumaConsumos (stConsumos consumo, char archi[])
+    int sumaConsumos (stConsumos consumos, char archivo[])
     {
-        // stConsumos consumo;
-        FILE *archi = fopen(archivoCliente, "rb");
+        ///buscar los consumos del mismo id y acumularlos, que la funcion te devuelva la cantidad de consumos acumulados
+        stConsumos consumos;
+        FILE *archivo = fopen(archivoConsumos, "r+b");
 
         int acum = 0;
+        int flag = busquedaPorId(stConsumos consumos, stCliente clientes,archivo clientes, archivo consumos);
 
-        acum = acum + cargaConsumosRand;
+        if (flag == 1)
+        {
+            acum = acum + consumos.datosConsumidos;
+        }
+
+        ///deberia tomar el consumo anterior del cliente para acumularle el nuevo?
+
         fclose(archi);
-        ///buscar los consumos del mismo id y acumularlos, que la funcion te devuelva la cantidad de consumos
+
         return acum;
     }
 
-    void consultaConsumo(stConsumo consumos)
-{
-    printf("\nNumero de Cliente........: %d",consumos.numeroDeCliente);
-    printf("\nDia......................: %d",consumos.dia);
-    printf("\nMes......................: %s",cliente.mes);
-    printf("\nAnio.....................: %s",cliente.anio);
-    printf("\nDNI......................: %s",cliente.dni);
+  stConsumos modifcarDatosConsumidos (stConsumos consumos)
+  {
+      ///igual a la logica planteada en estructura de clientes, modificacion de clientes
+      printf("\nIngrese los datos consumidos ");
+      fflush(stdin);
+      gets(consumos.datosConsumidos);
+  }
 
-}
 ///buscar por fecha , por dia, por dni y por nro de cliente
 ///modificacion de datos
-///carga rand
 ///modificar menu con gotoxy (funciones clientes , funciones consumos)
+
+
+int busquedaPorId( stConsumos consumos, stClientes clientes, char archivo[], char archi[])
+{
+    ///compara dos id iguales dentro del archivo y devuelve un flag 1 en caso de encontrarlos
+    stConsumos consumos;
+    stClientes clientes;
+    FILE *archivo = fopen(archivoCliente, "rb");
+    FILE *archi = fopen(archivoConsumos, "rb");
+    int flag = 0;
+    if(archi && archivo)
+    {
+        if(consumos.idCliente == clientes.id)
+        {
+            flag = 1;
+        }else
+        {
+            flag = 0;
+        }
+    }
+    fclose(archivo);
+    fclose(archi);
+    return flag;
+}
+
+int busquedaPorDia( stConsumos consumos, char archi[])
+{
+    ///comparar los dias en estructura de consumos con los guardados en el archivo , debemos pasarlo a un arreglo? y recorrer dos arreglos paralelos?
+
+    stConsumos consumos;
+    FILE *archi = fopen(archivoConsumos, "rb");
+    int flag = 0;
+    if(archi)
+    {
+
+
+    }
+
+    fclose(archivo);
+    fclose(archi);
+    return flag;
+}
