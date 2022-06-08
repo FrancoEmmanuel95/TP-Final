@@ -51,7 +51,8 @@ void cargaClienteArchivo(char nombreArchivo[]);
 int contarRegistros(char archivo[]);
 void borclien();
 
-//stConsumos altaConsumos(char archivo [],char archivoCliente, stConsumos consumo, stCliente clientes);
+int validacionConsumo (char archivo[], stConsumos a);
+stConsumos altaConsumos(char archivo [],char archivoCliente, stConsumos consumo, stCliente clientes);
 int validacionDiaMesAnio (stConsumos consumo);
 int validardia31(int dia);
 void mostrarConsumos(stConsumos consumos, stCliente clientes, char archivoCliente[], char archivo[]);

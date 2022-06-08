@@ -144,7 +144,7 @@
 	"gotoxy.h"
 	"consumos_header.h"
 
-1654638252 c:\users\franc\documents\github\tp-final\tp dafne\header_tpfinal.h
+1654648302 c:\users\franc\documents\github\tp-final\tp dafne\header_tpfinal.h
 	"consumos_header.h"
 
 1654632563 c:\users\franc\documents\github\tp-final\tp dafne\consumos_header.h
@@ -152,7 +152,7 @@
 
 1654632563 c:\users\franc\documents\github\tp-final\tp dafne\gotoxy.h
 
-1654645651 source:c:\users\franc\documents\github\tp-final\tp dafne\struct_tpfinal.c
+1654649676 source:c:\users\franc\documents\github\tp-final\tp dafne\struct_tpfinal.c
 	"header_tpfinal.h"
 	<string.h>
 	<stdio.h>
@@ -161,7 +161,6 @@
 	<conio.h>
 	"gotoxy.h"
 	<windows.h>
-	"consumos_header.h"
 
 1654632563 source:c:\users\franc\documents\github\tp-final\tp dafne\consumos.c
 	"consumos_header.h"

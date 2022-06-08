@@ -34,7 +34,6 @@
 		<Unit filename="consumos.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="consumos_header.h" />
 		<Unit filename="gotoxy.c">
 			<Option compilerVar="CC" />
 		</Unit>

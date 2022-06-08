@@ -1,47 +1,53 @@
-#include "consumos_header.h"
+#include "header_tpfinal.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #define clientes "clientes.dat"
-#define consumos "consumos.dat"
 #include <conio.h>
 #define ESC 27
+#include "gotoxy.h"
+#include <windows.h>
+#define consumos "consumos.dat"
+//#include "consumos_header.h"
 
-/*stConsumos altaConsumos(char archivo [],char archivoCliente, stConsumos consumo, stCliente clientes)
+stConsumos altaConsumos(char archivo [],char archivoCliente[], stConsumos consumo, stCliente clientes)
 {
     ///relaciona el id del cliente en struct cliente con id cliente en struct consumo y le agrega el consumo si flag = 1 en funcion validar fecha
-    stConsumos consumo;
-    stCliente clientes;
-
-    FILE *archi = fopen(nombrearchivo, "ab");
-    FILE *archi = fopen(archivoCliente, "rb");
+   // stConsumos consumo;
+   // stCliente clientes;
+    int c;
+    FILE* archicon = fopen(nombrearchivo, "ab");
+    FILE* archicli = fopen(archivoCliente, "rb");
     int idcl= clientes.id
 
-              if (archi)
+    if (archi)
     {
         consumo.idCliente = idcl;
-        c = validacionDiaMesAnio(stConsumos consumo)
+       // c = validacionDiaMesAnio(stConsumos consumo)
 
 
 
             fflush(stdin);
         printf("\nIngrese anio");
-        scanf("%d", consumo.anio);
+        scanf("%d", &consumo.anio);
 
         fflush(stdin);
         printf("\nIngrese mes");
-        scanf("%d", consumo.mes);
+        scanf("%d", &consumo.mes);
 
         fflush(stdin);
         printf("\nIngrese dia");
-        scanf("%d", consumo.dia);
+        scanf("%d", &consumo.dia);
+
+        c = validacionDiaMesAnio(stConsumos consumo)
 
         if (c == 1)
         {
             fflush(stdin);
             printf("\nIngrese los datos consumidos");
             scanf("%d", consumo.datosConsumidos);
+            c = validacionConsumo(clientes, stConsumos);
         }
         else
         {
@@ -60,7 +66,6 @@
     fclose(archivoCliente);
     return consumo;
 }
-*/
 int validacionDiaMesAnio (stConsumos consumo)
 {
     ///meses 1 3 5 7 8 10 12 = 31 --- meses 4 6 9 11 = 30 ---- mes 2 = 28 / biciesto 29 .. devuelve un flag = 1 si la fecha es correcta
@@ -72,10 +77,10 @@ int validacionDiaMesAnio (stConsumos consumo)
     if(mes >=1 && mes <=12)
     {
         switch (mes)
-    {
-    case 1:
-    {
-        if(dia >=1 && dia <=31 )
+        {
+        case 1:
+        {
+            if(dia >=1 && dia <=31 )
             {
                 flag = 1;
             }
@@ -167,11 +172,7 @@ int validacionDiaMesAnio (stConsumos consumo)
 
         }
         break;
-//stConsumos altaConsumos(char archivo [],char archivoCliente, stConsumos consumo, stCliente clientes);
-int validacionDiaMesAnio (stConsumos consumo);
-int validardia31(int dia);
-void mostrarConsumos(stConsumos consumo, stCliente cliente, char archivoCliente[], char archivo[]);
-//int sumaConsumos (stConsumos consumos, char archi[]);
+
         case 7:
         {
             if(dia >=1 && dia <=31 )
@@ -264,18 +265,19 @@ void mostrarConsumos(stConsumos consumo, stCliente cliente, char archivoCliente[
 
     return flag;
 }
-int validardia31(int dia){
+int validardia31(int dia)
+{
     int flag=0;
-            if(dia >=1 && dia <=31 )
-            {
-                flag = 1;
-            }
-            else
-            {
-                flag = 0;
-            }
+    if(dia >=1 && dia <=31 )
+    {
+        flag = 1;
+    }
+    else
+    {
+        flag = 0;
+    }
 
-return flag;
+    return flag;
 }
 
 
@@ -283,14 +285,14 @@ void mostrarConsumos(stConsumos consumo, stCliente cliente, char archivoCliente[
 {
     ///mostrar los datos del cliente y los datos consumidos hasta el momento
     //stConsumos consumo;
-   // stCliente cliente;
+    // stCliente cliente;
 
     FILE *archicons = fopen(archivo, "rb");
     FILE *archiclie = fopen(archivoCliente, "rb");
 
-  //  printf("\nNro Cliente.............", consumo.idCliente);
+    //  printf("\nNro Cliente.............", consumo.idCliente);
     consultaCliente(cliente);
-   // printf("\nDatos Consumidos........", consumo.datosConsumidos);
+    // printf("\nDatos Consumidos........", consumo.datosConsumidos);
     if(cliente.eliminado == 0)
     {
         printf("\nCLIENTE ACTIVO");
@@ -318,3 +320,30 @@ void mostrarConsumos(stConsumos consumo, stCliente cliente, char archivoCliente[
     }
 
 */
+int validacionConsumo (char archivo[], stConsumos a)
+{
+    int flag = 0;
+    stConsumos b;
+    FILE* archi = fopen(archivo, "r+b");
+    if (archi)
+    {
+        while (flag == 0 && fread(&a, sizeof(stConsumos),1, archi)>0)
+        {
+            if(a.idCliente == b.idCliente && a.anio == b.anio && a.mes == b.mes && a.dia == b.dia)
+            {
+                flag = 1;
+                b.datosConsumidos = a.datosConsumidos + b.datosConsumidos;
+                fseek(archi,sizeof(stConsumos)*(-1),0);
+                fwrite(&b, sizeof(stConsumos),1,archi);
+            }
+            else if (flag == 0)
+            {
+                fseek(archi, sizeof(stConsumos), SEEK_END);
+                fwrite(&a,sizeof(stConsumos),1,archi);
+            }
+            fclose(archi);
+
+        }
+    }
+    return flag;
+}

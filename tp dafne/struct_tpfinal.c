@@ -8,8 +8,8 @@
 #define ESC 27
 #include "gotoxy.h"
 #include <windows.h>
-
-#include "consumos_header.h"
+#define consumos "consumos.dat"
+//#include "consumos_header.h"
 stCliente altaUnCliente(int id)
 {
     int flag=0;
@@ -255,21 +255,11 @@ void muestraArchivoClientes(char nombreArchivo[])
 {
     FILE *archi = fopen(nombreArchivo, "rb");
     stCliente a;
-    int cont=0;
     if(archi)
     {
         while(fread(&a, sizeof(stCliente), 1, archi)>0)
         {
             consultaCliente(a);
-            if (cont==10)
-            {
-                cont=0;
-            }
-            else
-            {
-                cont++;
-            }
-
         }
         system("pause");
         fclose(archi);
