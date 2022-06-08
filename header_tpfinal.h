@@ -1,9 +1,9 @@
 #ifndef HEADER_TPFINAL_H_INCLUDED
 #define  HEADER_TPFINAL_H_INCLUDED
-
+#include "consumos_header.h"
 typedef struct
 {
-    int id; /// campo único y autoincremental
+    int id; /// campo ï¿½nico y autoincremental
     int nroCliente;
     char nombre[30];
     char apellido[30];
@@ -11,21 +11,26 @@ typedef struct
     char email[30];
     char domicilio[45];
     char movil[12];
-    int eliminado; /// 0 si está activo - 1 si está eliminado
+    int eliminado; /// 0 si estï¿½ activo - 1 si estï¿½ eliminado
 } stCliente;
 
 typedef struct
 {
-    int id; /// campo único y autoincremental int idCliente
+    int id; /// campo ï¿½nico y autoincremental
     int idCliente;
     int anio;
     int mes; /// 1 a 12
-    int dia; /// 1 a … dependiendo del mes
-    int datosConsumidos; /// expresados en mb. int baja; /// 0 si está activo - 1 si está eliminado
-} stConsumos;
+    int dia; /// 1 a ï¿½ dependiendo del mes
+    int datosConsumidos; /// expresados en mb.
+    int baja; /// 0 si estï¿½ activo - 1 si estï¿½ eliminado
+}stConsumo;
 
 
+
+stCliente altaUnCliente(int id);
 stCliente buscarporID(char archivo[],int id);
+stCliente buscarPorDni(char dni[],char archivo[]);
+stCliente buscarPorNroCliente(int nrocliente,char archivo[]);
 stCliente modificardomicilio(stCliente cliente);
 stCliente modificarNombre(stCliente cliente);
 stCliente modificarApellido(stCliente cliente);
@@ -33,20 +38,21 @@ stCliente modificarDNI(stCliente cliente);
 stCliente modificarMovil(stCliente cliente);
 stCliente modificarEmail(stCliente cliente);
 stCliente modificarAltaBaja(stCliente cliente);
-void seleccionModificar(int id);
-void modificarCliente(char archivo[],int id,int flag);
-//void consultaCliente(stCliente cliente);
-stCliente altaUnCliente(int id);
+
 int validacionNroCliente(stCliente b, char archivo[]);
 int validacionDni(char dni[], char archivo[]);
-char nomRand (char n[]);
-char apellRand(char a[]);
+int contarRegistros(char archivo[]);
+
+void modificarCliente(char archivo[],int id,int flag);
 void mostrarMenu();
 void seleccion();
 void muestraArchivoClientes(char nombreArchivo[]);
 void cargaClienteArchivo(char nombreArchivo[]);
-int contarRegistros(char archivo[]);
+void consultaCliente(stCliente cliente);
 void borclien();
-stCliente buscarPorDni(char dni[],char archivo[]);
+void menuModificar();
+void seleccionModificar(int id);
+
+
 
 #endif // HEADER-TPFINAL_H_INCLUDED
