@@ -28,12 +28,15 @@ typedef struct
 } stCliente;
 
 stConsumos altaConsumos(char archivo [],char archivoCliente, stConsumos consumo, stCliente clientes);
-int validacionConsumo (char archivo[], stConsumos a);
+
+void mostrarConsumos(stConsumos consumo, stCliente cliente, char archivoCliente[], char archivo[]);
+
 int validacionDiaMesAnio (stConsumos consumo);
 int validardia31(int dia);
 int validardia30(int dia);
-void mostrarConsumos(stConsumos consumo, stCliente cliente, char archivoCliente[], char archivo[]);
 int sumaConsumos (stConsumos consumo, char archi[]);
+int validacionConsumo (char archivo[], stConsumos a);
+
 
 
 
