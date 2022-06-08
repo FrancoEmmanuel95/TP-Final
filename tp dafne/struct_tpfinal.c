@@ -129,7 +129,7 @@ void cargaClienteArchivo(char nombreArchivo[])
     valido = contarRegistros(clientes);
     stCliente cliente;
 
-    FILE* archi=fopen(nombreArchivo,"ab");
+    FILE* archi=fopen(nombreArchivo,"r+b");
 
     if(archi)
     {
