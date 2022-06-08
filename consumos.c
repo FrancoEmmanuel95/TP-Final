@@ -297,6 +297,15 @@ int sumaConsumos (stConsumos consumo, char archi[])
         return acum;
     }
 
+    void consultaConsumo(stConsumo consumos)
+{
+    printf("\nNumero de Cliente........: %d",consumos.numeroDeCliente);
+    printf("\nDia......................: %d",consumos.dia);
+    printf("\nMes......................: %s",cliente.mes);
+    printf("\nAnio.....................: %s",cliente.anio);
+    printf("\nDNI......................: %s",cliente.dni);
+
+}
 ///buscar por fecha , por dia, por dni y por nro de cliente
 ///modificacion de datos
 ///carga rand
