@@ -8,7 +8,7 @@
 #define consumos "consumos.dat"
 #include "gotoxy.h"
 #define ESC 27
-#include "consumos_header.h"
+
 int main()
 {  // char archivoClientes[DIM];
     //stCliente stClientes[DIM];

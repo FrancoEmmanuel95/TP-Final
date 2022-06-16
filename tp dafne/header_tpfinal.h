@@ -1,6 +1,15 @@
 #ifndef HEADER_TPFINAL_H_INCLUDED
 #define  HEADER_TPFINAL_H_INCLUDED
-#include "consumos_header.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio.h>
+#include "header_tpfinal.h"
+#define DIM 1000
+#define clientes "clientes.dat"
+#define consumos "consumos.dat"
+#include "gotoxy.h"
+
 typedef struct
 {
     int id; /// campo único y autoincremental
@@ -51,11 +60,11 @@ void cargaClienteArchivo(char nombreArchivo[]);
 int contarRegistros(char archivo[]);
 void borclien();
 
+stConsumos altaConsumos(char archivo [],char archivoCliente[], stConsumos consumo, stCliente cliente);
 int validacionConsumo (char archivo[], stConsumos a);
-stConsumos altaConsumos(char archivo [],char archivoCliente, stConsumos consumo, stCliente clientes);
 int validacionDiaMesAnio (stConsumos consumo);
 int validardia31(int dia);
-void mostrarConsumos(stConsumos consumos, stCliente clientes, char archivoCliente[], char archivo[]);
+void mostrarConsumos(stConsumos consumo, stCliente cliente, char archivoCliente[], char archivo[]);
 //int sumaConsumos (stConsumos consumos, char archi[]);
 
 #endif // HEADER-TPFINAL_H_INCLUDED

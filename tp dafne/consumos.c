@@ -8,22 +8,22 @@
 #define ESC 27
 #include "gotoxy.h"
 #include <windows.h>
-#define consumos "consumos.dat"
+
 //#include "consumos_header.h"
 
-stConsumos altaConsumos(char archivo [],char archivoCliente[], stConsumos consumo, stCliente clientes)
+stConsumos altaConsumos(char archivo [],char archivoCliente[], stConsumos consumo, stCliente cliente)
 {
     ///relaciona el id del cliente en struct cliente con id cliente en struct consumo y le agrega el consumo si flag = 1 en funcion validar fecha
    // stConsumos consumo;
    // stCliente clientes;
-    int c;
-    FILE* archicon = fopen(nombrearchivo, "ab");
+    int c=0;
+    FILE* archicon = fopen(archivo, "ab");
     FILE* archicli = fopen(archivoCliente, "rb");
-    int idcl= clientes.id
 
-    if (archi)
+
+    if (archicon && archicli)
     {
-        consumo.idCliente = idcl;
+        //consumo.idCliente = idcl;
        // c = validacionDiaMesAnio(stConsumos consumo)
 
 
@@ -40,14 +40,14 @@ stConsumos altaConsumos(char archivo [],char archivoCliente[], stConsumos consum
         printf("\nIngrese dia");
         scanf("%d", &consumo.dia);
 
-        c = validacionDiaMesAnio(stConsumos consumo)
+        //c = validacionDiaMesAnio(stConsumos consumo);
 
         if (c == 1)
         {
             fflush(stdin);
             printf("\nIngrese los datos consumidos");
-            scanf("%d", consumo.datosConsumidos);
-            c = validacionConsumo(clientes, stConsumos);
+            scanf("%d", &consumo.datosConsumidos);
+            //c = validacionConsumo(clientes, stConsumos);
         }
         else
         {
@@ -62,8 +62,8 @@ stConsumos altaConsumos(char archivo [],char archivoCliente[], stConsumos consum
         }
 
     }
-    fclose(archi);
-    fclose(archivoCliente);
+    fclose(archicon);
+    fclose(archicli);
     return consumo;
 }
 int validacionDiaMesAnio (stConsumos consumo)

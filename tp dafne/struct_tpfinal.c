@@ -3,12 +3,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#define clientes "clientes.dat"
 #include <conio.h>
 #define ESC 27
 #include "gotoxy.h"
 #include <windows.h>
-#define consumos "consumos.dat"
+
 //#include "consumos_header.h"
 stCliente altaUnCliente(int id)
 {
