@@ -37,7 +37,7 @@ stCliente altaUnCliente(int id)
         gets(cliente.dni);
         if(flag==0)
         {
-            flag=validacionDni(cliente.dni,clientes);
+            flag=buscarPorDni(cliente.dni,clientes,1);
         }
 
         if(flag==0)
@@ -183,7 +183,7 @@ int validacionNroCliente(stCliente b, char archivo[])
 
 }
 
-int validacionDni(char dni[], char archivo[])
+/*int validacionDni(char dni[], char archivo[])
 {
     int flag=0;
     stCliente a;
@@ -206,7 +206,7 @@ int validacionDni(char dni[], char archivo[])
         printf("el archivo no pudo ser abierto");
     return flag;
 
-}
+}*/
 
 int contarRegistros(char archivo[])
 {
@@ -327,7 +327,7 @@ void mostrarMenu()
     gotoxy(35,8);
     printf("%c",186);
     gotoxy(0,9);
-    printf("%c7)dar de baja un consumo.\n",186);
+    printf("%c8)dar de baja un consumo.\n",186);
     gotoxy(35,9);
 
     printf("%c",186);
@@ -384,24 +384,32 @@ void seleccion()
         }
         break;
         case 53:
-            // borclien();
-            break;
-        case 54:
-            break;
-        case 55:
         {
 
+        }
+        break;
+        case 54:
+        {
+        }
+        break;
+        case 55:
+        {
+        }
+        break;
+        case 56:
+        {
+        }
+        break;
+        case 57:
+        {
+        }
+
+        break;
+        default:
+            printf("Opcion incorrecta \n");
             break;
-            case 56:
-                break;
-            case 57:
 
-                break;
-            default:
-                printf("Opcion incorrecta \n");
-                break;
 
-            }
         }
     }
     while(opcion != ESC);
@@ -432,7 +440,7 @@ void menuModificar()
         printf("\ningrese el dni a buscar, 0 para salir.\n");
         fflush(stdin);
         gets(valor);
-        buscarPorDni(valor,clientes);
+        buscarPorDni(valor,clientes,3);
     }
     break;
     case 3:
@@ -562,7 +570,7 @@ stCliente modificarDNI(stCliente cliente)
     printf("\ningrese el nuevo DNI: ");
     fflush(stdin);
     gets(cliente.dni);
-    flag=validacionDni(cliente.dni,clientes);
+    flag=buscarPorDni(cliente.dni,clientes,1);
 
     if(flag==1)
     {
@@ -610,7 +618,7 @@ stCliente modificarAltaBaja(stCliente cliente)
 
     return cliente;
 }
-stCliente buscarPorDni(char dni[],char archivo[])
+int buscarPorDni(char dni[],char archivo[],int param)
 {
     system("cls");
     FILE* archi = fopen(archivo, "rb");
@@ -625,11 +633,17 @@ stCliente buscarPorDni(char dni[],char archivo[])
             if(strcmpi(dni,a.dni)==0)
             {
                 flag=1;
-                consultaCliente(a);
-                id = a.id;
+
+                if(param ==2 || param==3)
+                {
+                    consultaCliente(a);
+                    id = a.id;
+                }
             }
         }
         fclose(archi);
+
+        if(param==3){
         if (flag==0)
         {
             printf("\nEl DNI ingresado no existe en nuestros archivos.\n\n");
@@ -648,9 +662,11 @@ stCliente buscarPorDni(char dni[],char archivo[])
             {
                 seleccionModificar(id);
             }
+
+        }
         }
     }
-    return a;
+    return flag;
 }
 
 stCliente buscarPorNroCliente(int nrocliente,char archivo[])

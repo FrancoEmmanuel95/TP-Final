@@ -38,7 +38,7 @@ typedef struct
 
 void menuModificar();
 stCliente buscarporID(char archivo[],int id);
-stCliente buscarPorDni(char dni[],char archivo[]);
+int buscarPorDni(char dni[],char archivo[],int param);
 stCliente buscarPorNroCliente(int nrocliente,char archivo[]);
 stCliente modificardomicilio(stCliente cliente);
 stCliente modificarNombre(stCliente cliente);
@@ -60,7 +60,7 @@ void cargaClienteArchivo(char nombreArchivo[]);
 int contarRegistros(char archivo[]);
 void borclien();
 
-stConsumos altaConsumos(char archivo [],char archivoCliente[], stConsumos consumo, stCliente cliente);
+stConsumos altaConsumos(char archivo[],char archivoCliente[], stCliente cliente);
 int validacionConsumo (char archivo[], stConsumos a);
 int validacionDiaMesAnio (stConsumos consumo);
 int validardia31(int dia);

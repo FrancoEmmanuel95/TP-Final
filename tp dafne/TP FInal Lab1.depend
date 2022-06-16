@@ -143,7 +143,7 @@
 	"header_tpfinal.h"
 	"gotoxy.h"
 
-1655416205 c:\users\franc\documents\github\tp-final\tp dafne\header_tpfinal.h
+1655420424 c:\users\franc\documents\github\tp-final\tp dafne\header_tpfinal.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -166,7 +166,7 @@
 	"gotoxy.h"
 	<windows.h>
 
-1655416782 source:c:\users\franc\documents\github\tp-final\tp dafne\consumos.c
+1655420365 source:c:\users\franc\documents\github\tp-final\tp dafne\consumos.c
 	"header_tpfinal.h"
 	<string.h>
 	<stdio.h>

@@ -11,11 +11,34 @@
 
 //#include "consumos_header.h"
 
-stConsumos altaConsumos(char archivo [],char archivoCliente[], stConsumos consumo, stCliente cliente)
+void buscarDniParaConsumo(char archivo[],char dni[]){
+int flag=0;
+stCliente cliente;
+
+FILE * archi = fopen(archivo,"rb");
+
+if (archi)
+{
+    while(flag == 0 && fread(&cliente,sizeof(stCliente),1,archi)>0){
+
+        if (strcmpi(cliente.dni,dni)==0)
+        {
+            flag==1;
+        }
+
+    }
+
+}
+
+
+
+}
+
+
+stConsumos altaConsumos(char archivo[],char archivoCliente[], stCliente cliente)
 {
     ///relaciona el id del cliente en struct cliente con id cliente en struct consumo y le agrega el consumo si flag = 1 en funcion validar fecha
-   // stConsumos consumo;
-   // stCliente clientes;
+    stConsumos consumo;
     int c=0;
     FILE* archicon = fopen(archivo, "ab");
     FILE* archicli = fopen(archivoCliente, "rb");
