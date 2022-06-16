@@ -67,14 +67,6 @@ stCliente altaUnCliente(int id)
     return cliente;
 }
 
-/*stCliente ordPorID()
-{
-    int validos=contarRegistros(clientes);
-    stcliente arraycliente[validos]
-
-
-
-}*/
 
 void borclien()
 {
@@ -200,7 +192,7 @@ int validacionDni(char dni[], char archivo[])
 
     if(archi)
     {
-        while(fread(&a,sizeof(stCliente),1,archi) && flag==0)
+        while(fread(&a,sizeof(stCliente),1,archi)>0 && flag==0)
         {
 
             if(strcmpi(dni,a.dni)==0)
@@ -659,42 +651,41 @@ stCliente buscarPorNroCliente(int nrocliente,char archivo[])
             }
         }
         fclose(archi);
+
         if (flag==0)
         {
             printf("\nEl Numero de cliente ingresado no existe en nuestros archivos.\n\n");
             system("pause");
+        }
+        if (flag==1)
+        {
 
-            if (flag==1)
+            printf("\n1: modificar cliente.");
+            printf("\n2: consultar consumos de este cliente.");
+            printf("\n3: volver.\n\nOpcion: ");
+            scanf("\n%d",&opcion);
+
+
+            switch(opcion)
             {
-
-                printf("\n1: modificar cliente.");
-                printf("\n2: consultar consumos de este cliente.");
-                printf("\n3: volver.\n\nOpcion: ");
-                scanf("\n%d",&opcion);
-
-
-                switch(opcion)
-                {
-                case 1:
-                {
-                    seleccionModificar(id);
-                }
+            case 1:
+            {
+                seleccionModificar(id);
+            }
+            break;
+            case 2:
                 break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                default:
-                {
-                    printf("el numero ingresado no es valido");
-                }
+            case 3:
                 break;
-                }
-
+            default:
+            {
+                printf("el numero ingresado no es valido");
+            }
+            break;
             }
 
         }
 
-
-    }return a;
- }
+    }
+    return a;
+}
