@@ -57,14 +57,17 @@ void mostrarMenu();
 void seleccion();
 void muestraArchivoClientes(char nombreArchivo[]);
 void cargaClienteArchivo(char nombreArchivo[]);
-int contarRegistros(char archivo[]);
+int contarRegistros(char archivo[],int tipoDato);
 void borclien();
 
-stConsumos altaConsumos(char archivo[],char archivoCliente[], stCliente cliente);
-int validacionConsumo (char archivo[], stConsumos a);
-int validacionDiaMesAnio (stConsumos consumo);
+stConsumos altaConsumos(int id,FILE *archi);
+int validacionConsumo (FILE * archi, stConsumos a);
+int validacionDiaMesAnio (int anio,int mes,int dia);
 int validardia31(int dia);
-void mostrarConsumos(stConsumos consumo, stCliente cliente, char archivoCliente[], char archivo[]);
+void mostrarConsumos(stCliente cliente, char archivo[]);
+int validardia30(int dia);
+void muestraUnConsumo(stConsumos cons);
+void listadoConsumos(char archivo[]);
 //int sumaConsumos (stConsumos consumos, char archi[]);
 
 #endif // HEADER-TPFINAL_H_INCLUDED

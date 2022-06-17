@@ -9,113 +9,149 @@
 #include "gotoxy.h"
 #include <windows.h>
 
-//#include "consumos_header.h"
 
-void buscarDniParaConsumo(char archivo[],char dni[]){
-int flag=0;
-stCliente cliente;
-
-FILE * archi = fopen(archivo,"rb");
-
-if (archi)
+int buscarId(int id,char archivo[])
 {
-    while(flag == 0 && fread(&cliente,sizeof(stCliente),1,archi)>0){
 
-        if (strcmpi(cliente.dni,dni)==0)
-        {
-            flag==1;
-        }
+    stCliente cliente;
+    int flag=0;
 
-    }
-
-}
-
-
-
-}
-
-
-stConsumos altaConsumos(char archivo[],char archivoCliente[], stCliente cliente)
-{
-    ///relaciona el id del cliente en struct cliente con id cliente en struct consumo y le agrega el consumo si flag = 1 en funcion validar fecha
-    stConsumos consumo;
-    int c=0;
-    FILE* archicon = fopen(archivo, "ab");
-    FILE* archicli = fopen(archivoCliente, "rb");
-
-
-    if (archicon && archicli)
+    FILE * archi = fopen(archivo, "rb");
+    if(archi)
     {
-        //consumo.idCliente = idcl;
-       // c = validacionDiaMesAnio(stConsumos consumo)
+        while(flag==0 && fread(&cliente,sizeof(stCliente),1,archi)>0)
+        {
+            if(id==cliente.id)
+            {
+                flag=1;
+                if(cliente.eliminado==1)
+                {
+                    flag=3;
+                }
+            }
+        }
+    }
+    fclose(archi);
+    return flag;
+}
 
 
+stConsumos altaConsumos(int id,FILE *archi)
+{
+    stConsumos consumo;
+    int flag=0;
+    int flag2=0;
 
-            fflush(stdin);
-        printf("\nIngrese anio");
+    consumo.id=id;
+    system("cls");
+    printf("\nIngrese el id del cliente: ");
+    scanf("%d",&consumo.idCliente);
+    flag=buscarId(consumo.idCliente,clientes);
+
+    if (flag==1 || flag==3)
+    {
+
+        fflush(stdin);
+        printf("\nIngrese a%co: ",164);
         scanf("%d", &consumo.anio);
 
         fflush(stdin);
-        printf("\nIngrese mes");
+        printf("\nIngrese mes: ");
         scanf("%d", &consumo.mes);
 
         fflush(stdin);
-        printf("\nIngrese dia");
+        printf("\nIngrese dia: ");
         scanf("%d", &consumo.dia);
 
-        //c = validacionDiaMesAnio(stConsumos consumo);
+        flag2 = validacionDiaMesAnio(consumo.anio,consumo.mes,consumo.dia);
 
-        if (c == 1)
+        if (flag2 == 1 )
         {
             fflush(stdin);
-            printf("\nIngrese los datos consumidos");
+            printf("\nIngrese los datos consumidos: ");
             scanf("%d", &consumo.datosConsumidos);
-            //c = validacionConsumo(clientes, stConsumos);
+            flag2 = validacionConsumo(archi, consumo);
+            if (flag2==2)
+            {
+                consumo.id=0;
+                printf("\nasdasda");
+                system("pause");
+            }
         }
         else
         {
             printf("\nFecha incorrecta");
         }
 
-
-
-        if (cliente.eliminado == 1)
-        {
-            printf("\nEl cliente se encuentra dado de baja");
-        }
+        /*  if (cliente.eliminado == 1)
+          {
+              printf("\nEl cliente se encuentra dado de baja");
+          }*/
 
     }
-    fclose(archicon);
-    fclose(archicli);
+    else
+    {
+        printf("el id del usuario es invalido");
+        consumo.id=0;
+    }
+
     return consumo;
 }
-int validacionDiaMesAnio (stConsumos consumo)
+
+void cargaConsumoArchivo(char archivo[])
+{
+    char opcion;
+    static int id=0;
+    id=contarRegistros(consumos,0);
+
+    stConsumos consumo;
+
+    FILE * archi = fopen (archivo, "ab");
+    if(archi)
+    {
+        do
+        {
+            id++;
+            consumo = altaConsumos(id,archi);
+
+            if(consumo.id!=0)
+            {
+                fwrite(&consumo,sizeof(stConsumos),1,archi);
+                printf("\n se ha cargado el consumo con exito.");
+            }
+
+
+            printf("\nESC para salir, cualquier tecla para continuar. ");
+            opcion=getch();
+        }
+        while (opcion!=ESC);
+
+        fclose(archi);
+    }
+
+
+
+
+}
+
+
+int validacionDiaMesAnio (int anio,int mes,int dia)
 {
     ///meses 1 3 5 7 8 10 12 = 31 --- meses 4 6 9 11 = 30 ---- mes 2 = 28 / biciesto 29 .. devuelve un flag = 1 si la fecha es correcta
     int flag = 0;
-    int dia = consumo.dia;
-    int mes = consumo.mes;
-    int anio = consumo.anio;
 
     if(mes >=1 && mes <=12)
     {
         switch (mes)
         {
-        case 1:
+        case 1:                         ///ENERO
         {
-            if(dia >=1 && dia <=31 )
-            {
-                flag = 1;
-            }
-            else
-            {
-                flag = 0;
-            }
+            flag=validardia31(dia);
 
         }
         break;
 
-        case 2:
+        case 2:                         ///FEBRERO
         {
             if (anio % 4 == 0 && anio % 100 !=0)
             {
@@ -140,143 +176,71 @@ int validacionDiaMesAnio (stConsumos consumo)
         }
         break;
 
-        case 3:
+        case 3:                                    ///MARZO
         {
-            if(dia >=1 && dia <=31 )
-            {
-                flag = 1;
-            }
-            else
-            {
-                flag = 0;
-            }
+            flag=validardia31(dia);
+        }
+        break;
+
+        case 4:                                     ///ABRIL
+        {
+            flag=validardia30(dia);
 
         }
         break;
 
-        case 4:
+        case 5:                                    /// MAYO
         {
-            if(dia >=1 && dia <=30 )
-            {
-                flag = 1;
-            }
-            else
-            {
-                flag = 0;
-            }
+            flag=validardia31(dia);
 
         }
         break;
 
-        case 5:
+        case 6:                                  ///JUNIO
         {
-            if(dia >=1 && dia <=31 )
-            {
-                flag = 1;
-            }
-            else
-            {
-                flag = 0;
-            }
+            flag=validardia30(dia);
 
         }
         break;
 
-        case 6:
+        case 7:                                 ///JULIO
         {
-            if(dia >=1 && dia <=30 )
-            {
-                flag = 1;
-            }
-            else
-            {
-                flag = 0;
-            }
+            flag=validardia31(dia);
 
         }
         break;
 
-        case 7:
+        case 8:                                 ///AGOSTO
         {
-            if(dia >=1 && dia <=31 )
-            {
-                flag = 1;
-            }
-            else
-            {
-                flag = 0;
-            }
+            flag=validardia31(dia);
 
         }
         break;
 
-        case 8:
+        case 9:                                 ///SEPTIEMBRE
         {
-            if(dia >=1 && dia <=31 )
-            {
-                flag = 1;
-            }
-            else
-            {
-                flag = 0;
-            }
+            flag=validardia30(dia);
 
         }
         break;
 
-        case 9:
+        case 10:                                ///OCTUBRE
         {
-            if(dia >=1 && dia <=30 )
-            {
-                flag = 1;
-            }
-            else
-            {
-                flag = 0;
-            }
+            flag=validardia31(dia);
 
         }
         break;
 
-        case 10:
+        case 11:                                ///NOVIEMBRE
         {
-            if(dia >=1 && dia <=31 )
-            {
-                flag = 1;
-            }
-            else
-            {
-                flag = 0;
-            }
+            flag=validardia30(dia);
 
         }
         break;
 
-        case 11:
+        case 12:                                ///DICIEMBRE
         {
-            if(dia >=1 && dia <=30 )
-            {
-                flag = 1;
-            }
-            else
-            {
-                flag = 0;
-
-            }
-
-        }
-        break;
-
-        case 12:
-        {
-            if(dia >=1 && dia <=31 )
-            {
-                flag = 1;
-            }
-            else
-            {
-                flag = 0;
-            }
+            flag=validardia31(dia);
 
         }
 
@@ -288,6 +252,7 @@ int validacionDiaMesAnio (stConsumos consumo)
 
     return flag;
 }
+
 int validardia31(int dia)
 {
     int flag=0;
@@ -303,31 +268,66 @@ int validardia31(int dia)
     return flag;
 }
 
-
-void mostrarConsumos(stConsumos consumo, stCliente cliente, char archivoCliente[], char archivo[])
+int validardia30(int dia)
 {
-    ///mostrar los datos del cliente y los datos consumidos hasta el momento
-    //stConsumos consumo;
-    // stCliente cliente;
-
-    FILE *archicons = fopen(archivo, "rb");
-    FILE *archiclie = fopen(archivoCliente, "rb");
-
-    //  printf("\nNro Cliente.............", consumo.idCliente);
-    consultaCliente(cliente);
-    // printf("\nDatos Consumidos........", consumo.datosConsumidos);
-    if(cliente.eliminado == 0)
+    int flag=0;
+    if(dia >=1 && dia <=30 )
     {
-        printf("\nCLIENTE ACTIVO");
+        flag = 1;
     }
     else
     {
-        printf("\nCLIENTE INACTIVO");
+        flag = 0;
     }
 
+    return flag;
+}
+
+void mostrarConsumos(stCliente cliente, char archivo[])
+{
+    ///mostrar los datos del cliente y los datos consumidos hasta el momento
+    stConsumos consumo;
+    int acum=0;
+
+    FILE *archicons = fopen(archivo, "rb");
+
+    if (archicons)
+    {
+        consultaCliente(cliente);
+
+        while(fread(&consumo,sizeof(stConsumos),1,archicons)>0)
+        {
+            if(cliente.id==consumo.idCliente)
+            {
+                muestraUnConsumo(consumo);
+                acum=acum+consumo.datosConsumidos;
+            }
+        }
+        printf("el total de datos consumidos es de : %d MB",acum);
+        system("pause");
+    }
 
     fclose(archicons);
-    fclose(archiclie);
+}
+
+void muestraUnConsumo(stConsumos cons)
+{
+    printf("\nID.....................: %d",cons.id);
+    printf("\nfecha..................:  %d/%d/%d",cons.dia,cons.mes,cons.anio);
+    printf("\ndatos consumidos (MB)..: %d",cons.datosConsumidos);
+
+
+    if (cons.baja==1)
+    {
+        printf("\nel consumo se encuentra dado de baja.");
+    }
+    else
+    {
+        printf("\nEl consumo se encuentra activo.");
+    }
+    printf("\n\n========================================================================================\n");
+
+
 }
 
 /*int sumaConsumos (stConsumos consumo, char archi[])
@@ -343,30 +343,57 @@ void mostrarConsumos(stConsumos consumo, stCliente cliente, char archivoCliente[
     }
 
 */
-int validacionConsumo (char archivo[], stConsumos a)
+int validacionConsumo (FILE * archi, stConsumos a)
 {
     int flag = 0;
     stConsumos b;
-    FILE* archi = fopen(archivo, "r+b");
+  //  FILE* archi = fopen(archivo, "r+b");
     if (archi)
     {
-        while (flag == 0 && fread(&a, sizeof(stConsumos),1, archi)>0)
+        rewind(archi);
+        while (flag == 0 && fread(&b, sizeof(stConsumos),1, archi)>0)
         {
             if(a.idCliente == b.idCliente && a.anio == b.anio && a.mes == b.mes && a.dia == b.dia)
             {
-                flag = 1;
+                flag = 2;
+                printf("\n\n%d (1)... %d (2)...===     . ",a.datosConsumidos,b.datosConsumidos);
+
                 b.datosConsumidos = a.datosConsumidos + b.datosConsumidos;
+
+                printf("%d",b.datosConsumidos);
+                system("pause");
                 fseek(archi,sizeof(stConsumos)*(-1),0);
                 fwrite(&b, sizeof(stConsumos),1,archi);
             }
-            else if (flag == 0)
-            {
-                fseek(archi, sizeof(stConsumos), SEEK_END);
-                fwrite(&a,sizeof(stConsumos),1,archi);
-            }
-            fclose(archi);
-
         }
+        //fclose(archi);
+
+
+    }
+    else{
+
+        printf("el archivo no se pudo abrir");
+        system("pause");
     }
     return flag;
+}
+
+void listadoConsumos(char archivo[])
+{
+    system("cls");
+    stConsumos consumo;
+
+    FILE * archi =fopen(archivo,"rb");
+
+    if (archi)
+    {
+        while(fread(&consumo,sizeof(stConsumos),1,archi)>0)
+        {
+            muestraUnConsumo(consumo);
+        }
+    }
+
+    system("pause");
+    fclose(archi);
+
 }

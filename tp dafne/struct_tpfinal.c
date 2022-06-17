@@ -117,7 +117,7 @@ void cargaClienteArchivo(char nombreArchivo[])
     int flag =0;
     int static valido=0;
     char salida='s';
-    valido = contarRegistros(clientes);
+    valido = contarRegistros(clientes,1);
     stCliente cliente;
 
     FILE* archi=fopen(nombreArchivo,"r+b");
@@ -183,39 +183,21 @@ int validacionNroCliente(stCliente b, char archivo[])
 
 }
 
-/*int validacionDni(char dni[], char archivo[])
-{
-    int flag=0;
-    stCliente a;
-    FILE* archi = fopen(archivo,"rb");
-
-
-    if(archi)
-    {
-        while(fread(&a,sizeof(stCliente),1,archi)>0 && flag==0)
-        {
-
-            if(strcmpi(dni,a.dni)==0)
-            {
-                flag = 1;
-            }
-
-        }
-    }
-    else
-        printf("el archivo no pudo ser abierto");
-    return flag;
-
-}*/
-
-int contarRegistros(char archivo[])
+int contarRegistros(char archivo[],int tipoDato)
 {
     FILE *archi=fopen(archivo,"r");
     int registros=0;
     if (archi)
     {
+        if (tipoDato==1){
         fseek(archi,0,SEEK_END);
         registros=ftell(archi)/sizeof(stCliente);
+        }
+        else if (tipoDato==0)
+        {
+        fseek(archi,0,SEEK_END);
+        registros=ftell(archi)/sizeof(stConsumos);
+        }
     }
     else
         printf("el archivo no pudo abrirse,");
@@ -259,29 +241,6 @@ void muestraArchivoClientes(char nombreArchivo[])
 }
 
 
-
-
-
-/*stCliente buscarporID(char archivo[],int id)
-{
-    FILE* archi = fopen(archivo,"r+b");
-    stCliente cliente;
-
-    if (archi)
-    {
-        fseek(archi,sizeof(stCliente)*(id-1),0);
-        fread(&cliente,sizeof(stCliente),1,archi);
-       // consultaCliente(cliente);
-        // cliente=modificardomicilio(cliente);
-        // fseek(archi,sizeof(stCliente)*(id-1),0);
-        // consultaCliente(cliente);
-        system("pause");
-        //    fwrite(&cliente,sizeof(stCliente),1,archi);
-        fclose(archi);
-
-    }
-    return cliente;
-}*/
 void mostrarMenu()
 {
     int i;
@@ -385,7 +344,7 @@ void seleccion()
         break;
         case 53:
         {
-
+            cargaConsumoArchivo(consumos);
         }
         break;
         case 54:
@@ -401,7 +360,7 @@ void seleccion()
         }
         break;
         case 57:
-        {
+        { listadoConsumos(consumos);
         }
 
         break;
@@ -662,6 +621,10 @@ int buscarPorDni(char dni[],char archivo[],int param)
             {
                 seleccionModificar(id);
             }
+            else if(opcion ==2)
+            {
+                mostrarConsumos(a,consumos);
+            }
 
         }
         }
@@ -672,7 +635,6 @@ int buscarPorDni(char dni[],char archivo[],int param)
 stCliente buscarPorNroCliente(int nrocliente,char archivo[])
 {
     system("cls");
-    // int reg=contarRegistros(clientes);
     FILE* archi = fopen(archivo, "rb");
     stCliente a;
     int opcion = 0;
