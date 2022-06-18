@@ -71,18 +71,15 @@ stConsumos altaConsumos(int id,FILE *archi)
             printf("\nIngrese los datos consumidos: ");
             scanf("%d", &consumo.datosConsumidos);
             flag2 = validacionConsumo(archi, consumo);
-            if (flag2==2)
-            {
-                consumo.id=0;
-                printf("\nasdasda");
-                system("pause");
-            }
         }
         else
         {
             printf("\nFecha incorrecta");
         }
-
+        if (flag2==2 || flag2==0)
+            {
+                consumo.id=0;
+            }
         /*  if (cliente.eliminado == 1)
           {
               printf("\nEl cliente se encuentra dado de baja");
@@ -106,7 +103,7 @@ void cargaConsumoArchivo(char archivo[])
 
     stConsumos consumo;
 
-    FILE * archi = fopen (archivo, "ab");
+    FILE * archi = fopen (archivo, "r+b");
     if(archi)
     {
         do
@@ -127,6 +124,11 @@ void cargaConsumoArchivo(char archivo[])
         while (opcion!=ESC);
 
         fclose(archi);
+    }
+    else{
+        printf("\nintente nuevamente.");
+         FILE * archi = fopen (archivo, "ab");
+         fclose(archivo);
     }
 
 
@@ -345,31 +347,30 @@ void muestraUnConsumo(stConsumos cons)
 */
 int validacionConsumo (FILE * archi, stConsumos a)
 {
-    int flag = 0;
+    int flag = 1;
     stConsumos b;
   //  FILE* archi = fopen(archivo, "r+b");
     if (archi)
     {
         rewind(archi);
-        while (flag == 0 && fread(&b, sizeof(stConsumos),1, archi)>0)
-        {
+
+    while(flag==1 && fread(&b,sizeof(stConsumos),1,archi)>0){
+
             if(a.idCliente == b.idCliente && a.anio == b.anio && a.mes == b.mes && a.dia == b.dia)
             {
                 flag = 2;
-                printf("\n\n%d (1)... %d (2)...===     . ",a.datosConsumidos,b.datosConsumidos);
+                //printf("\n\n%d (1)... %d (2)...===     . ",a.datosConsumidos,b.datosConsumidos);
 
                 b.datosConsumidos = a.datosConsumidos + b.datosConsumidos;
-
-                printf("%d",b.datosConsumidos);
-                system("pause");
-                fseek(archi,sizeof(stConsumos)*(-1),0);
+                fseek(archi,sizeof(stConsumos)*(-1),SEEK_CUR);
                 fwrite(&b, sizeof(stConsumos),1,archi);
+                printf("\n se ha cargado el consumo con exito.");
             }
-        }
+            }
         //fclose(archi);
+     }
 
 
-    }
     else{
 
         printf("el archivo no se pudo abrir");
