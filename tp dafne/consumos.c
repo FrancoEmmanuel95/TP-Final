@@ -332,6 +332,22 @@ void muestraUnConsumo(stConsumos cons)
 
 }
 
+void muestraConsFecha(char archivo[],int dia,int anio,int mes)
+{stConsumos consumo;
+
+FILE* archi = fopen(archivo,"rb");
+
+if (archi)
+{
+    while(fread(&consumo,sizeof(stconsumo),1,archi)>0){
+
+        if()
+    }
+
+}
+
+}
+
 /*int sumaConsumos (stConsumos consumo, char archi[])
 {
    // stConsumos consumo;
