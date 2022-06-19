@@ -332,35 +332,33 @@ void muestraUnConsumo(stConsumos cons)
 
 }
 
-void muestraConsFecha(char archivo[],int dia,int anio,int mes)
+void muestraConsFecha(char archivo[],int dia,int anio,int mes,int flag)
 {stConsumos consumo;
 
 FILE* archi = fopen(archivo,"rb");
 
 if (archi)
 {
-    while(fread(&consumo,sizeof(stconsumo),1,archi)>0){
+    while(fread(&consumo,sizeof(stConsumos),1,archi)>0){
 
-        if()
-    }
-
+        if (flag==3 && consumo.anio == anio && consumo.dia == dia && consumo.mes == mes)
+        {
+            muestraUnConsumo(consumo);
+        }
+        if (flag==2 && consumo.anio == anio && consumo.mes == mes)
+        {
+            muestraUnConsumo(consumo);
+        }
+        if (flag==1 && consumo.anio == anio)
+        {
+            muestraUnConsumo(consumo);
+        }
+}
+fclose(archi);
+system("pause");
+}
 }
 
-}
-
-/*int sumaConsumos (stConsumos consumo, char archi[])
-{
-   // stConsumos consumo;
-    FILE *archi = fopen(archivoCliente, "rb");
-
-    int acum = 0;
-    fclose(archi);
-    ///buscar los consumos del mismo id y acumularlos, que la funcion te devuelva la cantidad de consumos
-
-    while ()
-    }
-
-*/
 int validacionConsumo (FILE * archi, stConsumos a)
 {
     int flag = 1;

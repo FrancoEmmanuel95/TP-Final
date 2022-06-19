@@ -68,6 +68,6 @@ void mostrarConsumos(stCliente cliente, char archivo[]);
 int validardia30(int dia);
 void muestraUnConsumo(stConsumos cons);
 void listadoConsumos(char archivo[]);
-//int sumaConsumos (stConsumos consumos, char archi[]);
+void muestraConsFecha(char archivo[],int dia,int anio,int mes,int flag);
 
 #endif // HEADER-TPFINAL_H_INCLUDED

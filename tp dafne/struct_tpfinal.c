@@ -189,14 +189,15 @@ int contarRegistros(char archivo[],int tipoDato)
     int registros=0;
     if (archi)
     {
-        if (tipoDato==1){
-        fseek(archi,0,SEEK_END);
-        registros=ftell(archi)/sizeof(stCliente);
+        if (tipoDato==1)
+        {
+            fseek(archi,0,SEEK_END);
+            registros=ftell(archi)/sizeof(stCliente);
         }
         else if (tipoDato==0)
         {
-        fseek(archi,0,SEEK_END);
-        registros=ftell(archi)/sizeof(stConsumos);
+            fseek(archi,0,SEEK_END);
+            registros=ftell(archi)/sizeof(stConsumos);
         }
     }
     else
@@ -286,19 +287,22 @@ void mostrarMenu()
     gotoxy(35,8);
     printf("%c",186);
     gotoxy(0,9);
-    printf("%c8)dar de baja un consumo.\n",186);
+    printf("%c8)consulta de consumos.\n",186);
     gotoxy(35,9);
-
     printf("%c",186);
     gotoxy(0,10);
+    printf("%c8)dar de baja un consumo.\n",186);
+    gotoxy(35,10);
     printf("%c",186);
     gotoxy(0,11);
     printf("%c",186);
-    gotoxy(35,10);
+    gotoxy(0,12);
     printf("%c",186);
     gotoxy(35,11);
     printf("%c",186);
-    gotoxy(0,11);
+    gotoxy(35,12);
+    printf("%c",186);
+    gotoxy(0,12);
 
     printf("%cESC Salir.\n",186);
 
@@ -349,31 +353,103 @@ void seleccion()
         break;
         case 54:
         {
+            menuModificar();
         }
         break;
         case 55:
         {
+            menuModificar();
         }
         break;
         case 56:
         {
+            menuBuscarConsumo();
         }
         break;
         case 57:
-        { listadoConsumos(consumos);
+        {
+            listadoConsumos(consumos);
         }
 
         break;
         default:
             printf("Opcion incorrecta \n");
             break;
-
-
         }
     }
     while(opcion != ESC);
 }
 
+void menuBuscarConsumo()
+{
+    char opcion;
+    int anio;
+    int dia;
+    int mes;
+    system("cls");
+    printf("\n1. Busqueda por cliente.");
+    printf("\n2. Busqueda por fecha.");
+    printf("\nESC para volver.\n");
+
+    opcion=getch();
+
+    switch(opcion)
+    {
+    case 27:
+        break;
+    case 49:
+    {
+        menuModificar();
+    }
+    break;
+    case 50:
+    {   system("cls");
+        printf("\n1. Busqueda por a%co.",164);
+        printf("\n2. Busqueda por mes.");
+        printf("\n3. Busqueda por dia.");
+        opcion=getch();
+
+        switch(opcion)
+        {
+        case 27:
+            break;
+        case 49:
+        {
+            printf("\ningrese el a%co a buscar: "),164;
+            scanf("%d",&anio);
+            muestraConsFecha(consumos,0,anio,0,1);
+        }
+        break;
+        case 50:
+        {
+            printf("\ningrese el a%co a buscar: "),164;
+            scanf("%d",&anio);
+            printf("\ningrese el mes a buscar: ");
+            scanf("%d",&mes);
+            muestraConsFecha(consumos,0,anio,mes,2);
+        }
+        break;
+        case 51:
+        {
+            printf("\ningrese el a%co a buscar: "),164;
+            scanf("%d",&anio);
+            printf("\ningrese el mes a buscar: ");
+            scanf("%d",&mes);
+            printf("\ningrese el dia a buscar: ");
+            scanf("%d",&dia);
+            muestraConsFecha(consumos,dia,anio,mes,3);
+        }
+        break;
+        }
+
+    }
+    break;
+
+
+    }
+
+
+}
 void menuModificar()
 {
     int opcion;
@@ -602,31 +678,32 @@ int buscarPorDni(char dni[],char archivo[],int param)
         }
         fclose(archi);
 
-        if(param==3){
-        if (flag==0)
+        if(param==3)
         {
-            printf("\nEl DNI ingresado no existe en nuestros archivos.\n\n");
-            system("pause");
-        }
-
-        if (flag==1)
-        {
-            printf("\n1: modificar cliente.");
-            printf("\n2: consultar consumos de este cliente.");
-            printf("\n3: volver.\n\nOpcion: ");
-            scanf("\n%d",&opcion);
-
-
-            if (opcion ==1)
+            if (flag==0)
             {
-                seleccionModificar(id);
-            }
-            else if(opcion ==2)
-            {
-                mostrarConsumos(a,consumos);
+                printf("\nEl DNI ingresado no existe en nuestros archivos.\n\n");
+                system("pause");
             }
 
-        }
+            if (flag==1)
+            {
+                printf("\n1: modificar cliente.");
+                printf("\n2: consultar consumos de este cliente.");
+                printf("\n3: volver.\n\nOpcion: ");
+                scanf("\n%d",&opcion);
+
+
+                if (opcion ==1)
+                {
+                    seleccionModificar(id);
+                }
+                else if(opcion ==2)
+                {
+                    mostrarConsumos(a,consumos);
+                }
+
+            }
         }
     }
     return flag;
