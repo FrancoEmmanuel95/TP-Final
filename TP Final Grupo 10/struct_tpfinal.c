@@ -288,11 +288,11 @@ void mostrarMenu()
     gotoxy(35,8);
     printf("%c",186);
     gotoxy(0,9);
-    printf("%c8)consulta de consumos.\n",186);
+    printf("%c8)Listado de Consumos.\n",186);
     gotoxy(35,9);
     printf("%c",186);
     gotoxy(0,10);
-    printf("%c8)dar de baja un consumo.\n",186);
+    printf("%c9)dar de baja un consumo.\n",186);
     gotoxy(35,10);
     printf("%c",186);
     gotoxy(0,11);
@@ -317,7 +317,7 @@ void mostrarMenu()
 
 }
 void seleccion()
-{
+{int opc=0;
     char opcion;
     do
     {
@@ -364,13 +364,15 @@ void seleccion()
         break;
         case 56:
         {
-
+            listadoConsumos(consumos,clientes);
         }
         break;
         case 57:
         {
-            listadoConsumos(consumos,clientes);
-
+            system("cls");
+            printf("\ningrese el id del consumo: ");
+            scanf("%d",&opc);
+           modificarAltaBajaCons(consumos,clientes,opc);
         }
         break;
         default:

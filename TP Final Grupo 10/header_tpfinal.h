@@ -69,5 +69,6 @@ int validardia30(int dia);
 void muestraUnConsumo(stConsumos cons,FILE*archi);
 void listadoConsumos(char archivo[],char archicli[]);
 void muestraConsFecha(char archivo[],char archicli[],int dia,int anio,int mes,int flag);
+void modificarAltaBajaCons(char archivo[],char archivocli[],int id);
 
 #endif // HEADER-TPFINAL_H_INCLUDED
