@@ -176,7 +176,7 @@
 	"gotoxy.h"
 	<windows.h>
 
-1655680125 source:c:\users\franc\documents\github\tp-final\tp final grupo 10\consumos.c
+1655681986 source:c:\users\franc\documents\github\tp-final\tp final grupo 10\consumos.c
 	"header_tpfinal.h"
 	<string.h>
 	<stdio.h>
@@ -186,7 +186,7 @@
 	"gotoxy.h"
 	<windows.h>
 
-1655679661 c:\users\franc\documents\github\tp-final\tp final grupo 10\header_tpfinal.h
+1655681673 c:\users\franc\documents\github\tp-final\tp final grupo 10\header_tpfinal.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -209,7 +209,7 @@
 	"header_tpfinal.h"
 	"gotoxy.h"
 
-1655679945 source:c:\users\franc\documents\github\tp-final\tp final grupo 10\struct_tpfinal.c
+1655681831 source:c:\users\franc\documents\github\tp-final\tp final grupo 10\struct_tpfinal.c
 	"header_tpfinal.h"
 	<string.h>
 	<stdio.h>

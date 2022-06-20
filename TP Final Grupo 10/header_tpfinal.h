@@ -60,7 +60,7 @@ void cargaClienteArchivo(char nombreArchivo[]);
 int contarRegistros(char archivo[],int tipoDato);
 void borclien();
 
-stConsumos altaConsumos(int id,FILE *archi);
+stConsumos altaConsumos(int id,FILE *archi,FILE *archcli);
 int validacionConsumo (FILE * archi, stConsumos a);
 int validacionDiaMesAnio (int anio,int mes,int dia);
 int validardia31(int dia);
@@ -70,5 +70,6 @@ void muestraUnConsumo(stConsumos cons,FILE*archi);
 void listadoConsumos(char archivo[],char archicli[]);
 void muestraConsFecha(char archivo[],char archicli[],int dia,int anio,int mes,int flag);
 void modificarAltaBajaCons(char archivo[],char archivocli[],int id);
+stConsumos valiNroCli(int nrocliente,FILE*archi,stConsumos consumo);
 
 #endif // HEADER-TPFINAL_H_INCLUDED

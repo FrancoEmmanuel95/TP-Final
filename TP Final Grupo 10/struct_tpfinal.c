@@ -349,7 +349,7 @@ void seleccion()
         break;
         case 53:
         {
-            cargaConsumoArchivo(consumos);
+            cargaConsumoArchivo(consumos,clientes);
         }
         break;
         case 54:

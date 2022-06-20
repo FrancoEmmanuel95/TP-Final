@@ -35,67 +35,100 @@ int buscarId(int id,char archivo[])
     return flag;
 }
 
-
-stConsumos altaConsumos(int id,FILE *archi)
+stConsumos valiNroCli(int nroc,FILE*archi,stConsumos consumo)
 {
-    stConsumos consumo;
-    int flag=0;
-    int flag2=0;
-
-    consumo.id=id;
-    system("cls");
-    printf("\nIngrese el id del cliente: ");
-    scanf("%d",&consumo.idCliente);
-    flag=buscarId(consumo.idCliente,clientes);
-
-    if (flag==1 || flag==3)
+    int flag = 0;
+    stCliente cliente;
+    if(archi)
     {
+        rewind(archi);
 
-        fflush(stdin);
-        printf("\nIngrese a%co: ",164);
-        scanf("%d", &consumo.anio);
 
-        fflush(stdin);
-        printf("\nIngrese mes: ");
-        scanf("%d", &consumo.mes);
-
-        fflush(stdin);
-        printf("\nIngrese dia: ");
-        scanf("%d", &consumo.dia);
-
-        flag2 = validacionDiaMesAnio(consumo.anio,consumo.mes,consumo.dia);
-
-        if (flag2 == 1 )
+        while(flag==0 && fread(&cliente,sizeof(stCliente),1,archi)>0)
         {
-            fflush(stdin);
-            printf("\nIngrese los datos consumidos: ");
-            scanf("%d", &consumo.datosConsumidos);
-            flag2 = validacionConsumo(archi, consumo);
+            if(nroc==cliente.nroCliente)
+            {
+                consumo.idCliente=cliente.id;
+                flag==1;
+            }
         }
-        else
-        {
-            printf("\nFecha incorrecta");
-        }
-        if (flag2==2 || flag2==0)
-        {
-            consumo.id=0;
-        }
-        /*  if (cliente.eliminado == 1)
-          {
-              printf("\nEl cliente se encuentra dado de baja");
-          }*/
-
     }
-    else
-    {
-        printf("el id del usuario es invalido");
-        consumo.id=0;
-    }
-
     return consumo;
 }
 
-void cargaConsumoArchivo(char archivo[])
+
+stConsumos altaConsumos(int id,FILE *archi,FILE *archcli)
+{
+    int nroc=0;
+    stConsumos consumo;
+    stCliente cliente;
+    int flag=0;
+    int flag2=0;
+
+
+    if(archi && archcli)
+    {
+
+
+        consumo.id=id;
+
+        system("cls");
+        printf("\nIngrese el nro de cliente: ");
+        scanf("%d",&nroc);
+        consumo.idCliente=0;
+        consumo=valiNroCli(nroc,archcli,consumo);
+        if(consumo.idCliente>0)
+        {
+            flag=1;
+        }
+        if (flag==1)
+        {
+
+            fflush(stdin);
+            printf("\nIngrese a%co: ",164);
+            scanf("%d", &consumo.anio);
+
+            fflush(stdin);
+            printf("\nIngrese mes: ");
+            scanf("%d", &consumo.mes);
+
+            fflush(stdin);
+            printf("\nIngrese dia: ");
+            scanf("%d", &consumo.dia);
+
+            flag2 = validacionDiaMesAnio(consumo.anio,consumo.mes,consumo.dia);
+
+            if (flag2 == 1 )
+            {
+                fflush(stdin);
+                printf("\nIngrese los datos consumidos: ");
+                scanf("%d", &consumo.datosConsumidos);
+                flag2 = validacionConsumo(archi, consumo);
+            }
+            else
+            {
+                printf("\nFecha incorrecta");
+            }
+            if (flag2==2 || flag2==0)
+            {
+                consumo.id=0;
+            }
+            /*  if (cliente.eliminado == 1)
+              {
+                  printf("\nEl cliente se encuentra dado de baja");
+              }*/
+            consumo.baja=0;
+        }
+        else
+        {
+            printf("el nro de cliente es invalido");
+            consumo.id=0;
+        }
+    }
+    return consumo;
+}
+
+void cargaConsumoArchivo(char archivo[],char arccli[])
 {
     char opcion;
     static int id=0;
@@ -104,12 +137,13 @@ void cargaConsumoArchivo(char archivo[])
     stConsumos consumo;
 
     FILE * archi = fopen (archivo, "r+b");
-    if(archi)
+    FILE * archicli = fopen (arccli, "rb");
+    if(archi && archicli)
     {
         do
         {
             id++;
-            consumo = altaConsumos(id,archi);
+            consumo = altaConsumos(id,archi,archicli);
 
             if(consumo.id!=0)
             {
@@ -323,7 +357,7 @@ void muestraUnConsumo(stConsumos cons,FILE*archi)
     {
         fseek(archi,sizeof(stCliente)*(cons.idCliente-1),SEEK_CUR);
         fread(&cliente,sizeof(stCliente),1,archi);
-        //  printf("\nID.....................: %d",cons.id);
+         printf("\nID.....................: %d",cons.id);
         printf("\nNro Cliente............: %d",cliente.nroCliente);
         printf("\nfecha..................: %d/%d/%d",cons.dia,cons.mes,cons.anio);
         printf("\ndatos consumidos (MB)..: %d",cons.datosConsumidos);
@@ -333,7 +367,7 @@ void muestraUnConsumo(stConsumos cons,FILE*archi)
         {
             printf("\nel consumo se encuentra dado de baja.");
         }
-        else
+        else if(cons.baja==0)
         {
             printf("\nEl consumo se encuentra activo.");
         }
@@ -437,7 +471,7 @@ void modificarAltaBajaCons(char archivo[],char archivocli[],int id)
 {
     int flag=0;
     stConsumos consumo;
-    char opc;
+    int opc=0;
     FILE* archi = fopen(archivo,"r+b");
     FILE* archicl = fopen(archivocli,"rb");
 
@@ -453,40 +487,48 @@ void modificarAltaBajaCons(char archivo[],char archivocli[],int id)
                 printf("\n");
                 if(consumo.baja == 0)
                 {
-                    printf("\nEl consumo esta activo. quiere darle de baja? y/n \n");
-                    opc=getch();
+                    printf("\nEl consumo esta activo. quiere darle de baja? si(1)/ no(0) \n");
+                    fflush(stdin);
+                    scanf("%d",&opc);
                 }
                 else
                 {
-                    printf("\nEl consumo esta dado de baja, quiere darle el alta? y/n \n");
-                    opc=getch();
+                    printf("\nEl consumo esta dado de baja, quiere darle el alta? si(1)/ no(0)\n");
+                    fflush(stdin);
+                    scanf("%d",&opc);
                 }
+            printf("\n\t%d\n",consumo.baja);
+        system("pause");
 
-                if (consumo.baja == 0 && opc=='y')
-                {
+                if (opc==1 && consumo.baja == 0 )
+                {   printf("sdf1");
                     consumo.baja=1;
+                                printf("\n\t%d\n",consumo.baja);
+        system("pause");
+
                 }
-                else if(consumo.baja==1 && opc=='y')
+                else if(opc==1 && consumo.baja==1)
                 {
+                    printf("asda22");
                     consumo.baja=0;
                 }
+            }
+        }
+                    printf("\n\t%d\n",consumo.baja);
+        system("pause");
 
 
-
-                if(opc=='y')
-                {
-                    fseek(archi,sizeof(stConsumos)*(-1),SEEK_CUR);
-                    fwrite(&consumo,sizeof(stConsumos),1,archi);
-                    printf("\nEl consumo fue modificado con exito.\n");
-
-                    system("pause");
-                }
-                }
-
+        if(opc==1)
+        {
+            fseek(archi,sizeof(stConsumos)*(-1),SEEK_CUR);
+            muestraUnConsumo(consumo,archicl);
+            fwrite(&consumo,sizeof(stConsumos),1,archi);
+            printf("\nEl consumo fue modificado con exito.\n");
 
         }
-                fclose(archi);
-                fclose(archicl);
+
+        fclose(archi);
+        fclose(archicl);
 
     }
 
