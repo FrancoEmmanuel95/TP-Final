@@ -523,6 +523,7 @@ void cargaRandCons(char arcon[],char arcli[]){
 srand(time(NULL));
 int nrocliente;
 int nroc;
+int opc=0;
 int flag=0;
 int total=0;
 int flag2=0;
@@ -537,6 +538,9 @@ FILE*arcons=fopen(arcon,"r+b");
 FILE*arclien=fopen(arcli,"r+b");
 
 if(arcons && arclien){
+
+      printf("\ningrese la cantidad de consumos random a cargar: \n");
+      scanf("%d",&opc);
 
       do
         {
@@ -580,7 +584,7 @@ if(arcons && arclien){
         }
         else
         {
-            printf("el nro de cliente es invalido");
+            printf("\nel nro de cliente es invalido\n");
             consumo.id=0;
         }
 
@@ -597,7 +601,7 @@ if(arcons && arclien){
         total++;
 
         }
-        while (id<1002);
+        while (total<opc);
 
         fclose(arcons);
 

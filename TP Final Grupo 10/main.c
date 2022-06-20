@@ -13,19 +13,11 @@
 
 
 int main()
-{  srand(time(NULL));
-// char archivoClientes[DIM];
-    //stCliente stClientes[DIM];
+{
 
-   // stCliente cliente;
 
     seleccion();
-    //system("cls");
-    //consultaCliente(cliente);
 
-    /*stClientes[ID]=altaUnCliente(ID);
-    consultaCliente(stClientes[0]);
-    printf("\n\n%d",ID);*/
 
 
     return 0;

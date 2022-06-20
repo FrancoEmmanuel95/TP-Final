@@ -252,58 +252,111 @@ void mostrarMenu()
         printf("%c", 205);
     }
     printf("%c", 187);
-    printf("\n%c1)Carga nuevo cliente.\n",186);
+    gotoxy(0,1);
+    printf("%c\tFunciones Clientes.\n",186);
     gotoxy(35,1);
     printf("%c",186);
-    gotoxy(0,2);
-    printf("%c2)Listado clientes.\n",186);
 
+    gotoxy(1,2);
+    for (i=1; i<35; i++)
+    {
+        printf("%c", 196);
+    }
+
+    gotoxy(0,2);
+    printf("%c\n",186);
     gotoxy(35,2);
     printf("%c",186);
-    gotoxy(0,3);
-    printf("%c3)Consulta clientes.\n",186);
 
+    gotoxy(0,3);
+    printf("%c1)Carga nuevo cliente.\n",186);
     gotoxy(35,3);
     printf("%c",186);
+
     gotoxy(0,4);
-    printf("%c4)Modificar cliente.\n",186);
+    printf("%c2)Listado clientes.\n",186);
     gotoxy(35,4);
-
     printf("%c",186);
+
     gotoxy(0,5);
-    printf("%c\n",186);
+    printf("%c3)Consulta clientes.\n",186);
     gotoxy(35,5);
-
     printf("%c",186);
+
     gotoxy(0,6);
-    printf("%c5)Carga nuevo consumo.\n",186);
+    printf("%c4)Modificar cliente.\n",186);
     gotoxy(35,6);
     printf("%c",186);
+
     gotoxy(0,7);
-    printf("%c6)mostrar consumos de un cliente.\n",186);
+    printf("%c\n",186);
     gotoxy(35,7);
     printf("%c",186);
+
+    gotoxy(1,7);
+    for (i=1; i<35; i++)
+    {
+        printf("%c", 196);
+    }
+
     gotoxy(0,8);
-    printf("%c7)Consulta de Consumos.\n",186);
+    printf("%c\tFunciones Consumos.\n",186);
     gotoxy(35,8);
     printf("%c",186);
+
     gotoxy(0,9);
-    printf("%c8)Listado de Consumos.\n",186);
+    printf("%c\n",186);
     gotoxy(35,9);
     printf("%c",186);
+
+    gotoxy(1,9);
+    for (i=1; i<35; i++)
+    {
+        printf("%c", 196);
+    }
+
     gotoxy(0,10);
-    printf("%c9)dar de baja un consumo.\n",186);
+    printf("%c5)Carga nuevo consumo.\n",186);
     gotoxy(35,10);
     printf("%c",186);
+
     gotoxy(0,11);
-    printf("%c",186);
-    gotoxy(0,12);
-    printf("%c",186);
+    printf("%c6)mostrar consumos de un cliente.\n",186);
     gotoxy(35,11);
     printf("%c",186);
+
+    gotoxy(0,12);
+    printf("%c7)Consulta de Consumos.\n",186);
     gotoxy(35,12);
     printf("%c",186);
-    gotoxy(0,12);
+
+    gotoxy(0,13);
+    printf("%c8)Listado de Consumos.\n",186);
+    gotoxy(35,13);
+    printf("%c",186);
+
+    gotoxy(0,14);
+    printf("%c9)dar de baja un consumo.\n",186);
+    gotoxy(35,14);
+    printf("%c",186);
+    gotoxy(0,15);
+    printf("%c10)Carga random de consumos.\n",186);
+    gotoxy(35,15);
+    printf("%c",186);
+    gotoxy(0,16);
+    printf("%c",186);
+    gotoxy(1,16);
+    for (i=1; i<35; i++)
+    {
+        printf("%c", 196);
+    }
+    gotoxy(0,17);
+    printf("%c",186);
+    gotoxy(35,16);
+    printf("%c",186);
+    gotoxy(35,17);
+    printf("%c",186);
+    gotoxy(0,17);
 
     printf("%cESC Salir.\n",186);
 
