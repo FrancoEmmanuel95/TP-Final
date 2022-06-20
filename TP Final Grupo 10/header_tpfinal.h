@@ -9,6 +9,7 @@
 #define clientes "clientes.dat"
 #define consumos "consumos.dat"
 #include "gotoxy.h"
+#include <time.h>
 
 typedef struct
 {
@@ -71,5 +72,6 @@ void listadoConsumos(char archivo[],char archicli[]);
 void muestraConsFecha(char archivo[],char archicli[],int dia,int anio,int mes,int flag);
 void modificarAltaBajaCons(char archivo[],char archivocli[],int id);
 stConsumos valiNroCli(int nrocliente,FILE*archi,stConsumos consumo);
+void cargaRandCons(char arcon[],char arcli[]);
 
 #endif // HEADER-TPFINAL_H_INCLUDED

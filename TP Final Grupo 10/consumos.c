@@ -49,8 +49,12 @@ stConsumos valiNroCli(int nroc,FILE*archi,stConsumos consumo)
             if(nroc==cliente.nroCliente)
             {
                 consumo.idCliente=cliente.id;
-                flag==1;
+                flag=1;
             }
+        }
+        if(flag==0){
+
+            consumo.id=0;
         }
     }
     return consumo;
@@ -150,7 +154,10 @@ void cargaConsumoArchivo(char archivo[],char arccli[])
                 fwrite(&consumo,sizeof(stConsumos),1,archi);
                 printf("\n se ha cargado el consumo con exito.");
             }
-
+            else
+            {
+                id--;
+            }
 
             printf("\nESC para salir, cualquier tecla para continuar. ");
             opcion=getch();
@@ -357,7 +364,7 @@ void muestraUnConsumo(stConsumos cons,FILE*archi)
     {
         fseek(archi,sizeof(stCliente)*(cons.idCliente-1),SEEK_CUR);
         fread(&cliente,sizeof(stCliente),1,archi);
-         printf("\nID.....................: %d",cons.id);
+        printf("\nID.....................: %d",cons.id);
         printf("\nNro Cliente............: %d",cliente.nroCliente);
         printf("\nfecha..................: %d/%d/%d",cons.dia,cons.mes,cons.anio);
         printf("\ndatos consumidos (MB)..: %d",cons.datosConsumidos);
@@ -481,56 +488,124 @@ void modificarAltaBajaCons(char archivo[],char archivocli[],int id)
         {
             if (id==consumo.id)
             {
-                flag==1;
+                flag=1;
                 printf("\n");
                 muestraUnConsumo(consumo,archicl);
                 printf("\n");
-                if(consumo.baja == 0)
-                {
-                    printf("\nEl consumo esta activo. quiere darle de baja? si(1)/ no(0) \n");
-                    fflush(stdin);
-                    scanf("%d",&opc);
-                }
-                else
-                {
-                    printf("\nEl consumo esta dado de baja, quiere darle el alta? si(1)/ no(0)\n");
-                    fflush(stdin);
-                    scanf("%d",&opc);
-                }
-            printf("\n\t%d\n",consumo.baja);
-        system("pause");
 
-                if (opc==1 && consumo.baja == 0 )
-                {   printf("sdf1");
+
+                if (consumo.baja == 0 )
+                {
                     consumo.baja=1;
-                                printf("\n\t%d\n",consumo.baja);
-        system("pause");
 
                 }
-                else if(opc==1 && consumo.baja==1)
+                else if(consumo.baja==1)
                 {
-                    printf("asda22");
                     consumo.baja=0;
+
                 }
+
+                fseek(archi,sizeof(stConsumos)*(-1),SEEK_CUR);
+                fwrite(&consumo,sizeof(stConsumos),1,archi);
+                printf("\nEl consumo fue modificado con exito.\n");
+
             }
         }
-                    printf("\n\t%d\n",consumo.baja);
-        system("pause");
+  system("pause");
 
-
-        if(opc==1)
-        {
-            fseek(archi,sizeof(stConsumos)*(-1),SEEK_CUR);
-            muestraUnConsumo(consumo,archicl);
-            fwrite(&consumo,sizeof(stConsumos),1,archi);
-            printf("\nEl consumo fue modificado con exito.\n");
-
-        }
-
-        fclose(archi);
         fclose(archicl);
-
+        fclose(archi);
     }
 
 }
+
+void cargaRandCons(char arcon[],char arcli[]){
+srand(time(NULL));
+int nrocliente;
+int nroc;
+int flag=0;
+int total=0;
+int flag2=0;
+stConsumos consumo;
+stCliente cliente;
+ static int id=0;
+    id=contarRegistros(consumos,0);
+    nrocliente=contarRegistros(clientes,1);
+    nrocliente=nrocliente+134;
+
+FILE*arcons=fopen(arcon,"r+b");
+FILE*arclien=fopen(arcli,"r+b");
+
+if(arcons && arclien){
+
+      do
+        {
+            id++;
+
+            consumo.id=id;
+
+        system("cls");
+        nroc=rand()%100+135;
+        consumo.idCliente=0;
+        consumo=valiNroCli(nroc,arclien,consumo);
+        if(consumo.idCliente>0)
+        {
+            flag=1;
+        }
+        if (flag==1)
+        {
+
+
+            consumo.anio=2022;
+
+            consumo.mes= rand()%12;
+            consumo.dia= rand()%31;
+
+            flag2 = validacionDiaMesAnio(consumo.anio,consumo.mes,consumo.dia);
+
+            if (flag2 == 1 )
+            {
+                consumo.datosConsumidos=rand()%120;
+                flag2 = validacionConsumo(arcons, consumo);
+            }
+            else
+            {
+                printf("\nFecha incorrecta");
+            }
+            if (flag2==2 || flag2==0)
+            {
+                consumo.id=0;
+            }
+            consumo.baja=0;
+        }
+        else
+        {
+            printf("el nro de cliente es invalido");
+            consumo.id=0;
+        }
+
+
+            if(consumo.id!=0)
+            {
+                fwrite(&consumo,sizeof(stConsumos),1,arcons);
+            }
+            else
+            {
+                id--;
+            }
+
+        total++;
+
+        }
+        while (id<1002);
+
+        fclose(arcons);
+
+
+
+}
+
+}
+
+
 

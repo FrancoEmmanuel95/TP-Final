@@ -9,8 +9,12 @@
 #include "gotoxy.h"
 #define ESC 27
 
+
+
+
 int main()
-{  // char archivoClientes[DIM];
+{  srand(time(NULL));
+// char archivoClientes[DIM];
     //stCliente stClientes[DIM];
 
    // stCliente cliente;

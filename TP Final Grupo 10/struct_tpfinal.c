@@ -329,6 +329,11 @@ void seleccion()
         {
         case 27:
             break;
+                case 48:
+        {
+           cargaRandCons(consumos,clientes);
+        }
+        break;
         case 49:
         {
             cargaClienteArchivo(clientes);
@@ -400,6 +405,7 @@ void menuBuscarConsumo()
     {
     case 27:
         break;
+
     case 49:
     {
         menuModificar();
