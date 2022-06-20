@@ -562,10 +562,15 @@ if(arcons && arclien){
 
             consumo.anio=2022;
 
-            consumo.mes= rand()%12;
+            consumo.mes= rand()%7;
             consumo.dia= rand()%31;
 
             flag2 = validacionDiaMesAnio(consumo.anio,consumo.mes,consumo.dia);
+
+            if (flag2==1)
+            {
+                flag2=valFechaActual(consumo);
+            }
 
             if (flag2 == 1 )
             {
@@ -609,6 +614,21 @@ if(arcons && arclien){
 
 }
 
+}
+
+int valFechaActual(stConsumos consumo)
+{int flag=0;
+
+    if (consumo.mes<7)
+    {
+        if (consumo.dia<=21)
+        {
+            flag=1;
+        }
+    }
+
+
+    return flag;
 }
 
 

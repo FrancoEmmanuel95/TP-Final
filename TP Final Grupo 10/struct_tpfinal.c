@@ -339,24 +339,22 @@ void mostrarMenu()
     printf("%c9)dar de baja un consumo.\n",186);
     gotoxy(35,14);
     printf("%c",186);
-    gotoxy(0,15);
-    printf("%c10)Carga random de consumos.\n",186);
     gotoxy(35,15);
     printf("%c",186);
-    gotoxy(0,16);
+    gotoxy(0,15);
     printf("%c",186);
-    gotoxy(1,16);
+    gotoxy(1,15);
     for (i=1; i<35; i++)
     {
         printf("%c", 196);
     }
-    gotoxy(0,17);
-    printf("%c",186);
-    gotoxy(35,16);
+    gotoxy(0,16);
     printf("%c",186);
     gotoxy(35,17);
     printf("%c",186);
-    gotoxy(0,17);
+    gotoxy(35,16);
+    printf("%c",186);
+    gotoxy(0,16);
 
     printf("%cESC Salir.\n",186);
 
@@ -376,6 +374,7 @@ void seleccion()
     {
         system("cls");
         mostrarMenu();
+        gotoxy(0,20);
         fflush(stdin);
         opcion=getch();
         switch(opcion)
